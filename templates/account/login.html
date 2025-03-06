@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+  Sign In
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <h1>Sign In</h1>
+
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn btn-primary" type="submit">Sign In</button>
+          <a href="{% url 'account_signup' %}">Sign up</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

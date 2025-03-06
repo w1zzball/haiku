@@ -20,9 +20,21 @@
           <li>
             {% comment %} <a href="{% url 'home' %}">Home</a> {% endcomment %}
           </li>
-          <li>
-            {% comment %}add if statement for not logged in <a href="{% url 'user-posts' username=request.user.username %}">My Posts</a> {% endcomment %}
-          </li>
+          {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'user-posts' username=user.username %}">My Posts</a>
+            </li>
+            <li>
+              <a href="{% url 'account_logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{% url 'account_login' %}">Login</a>
+            </li>
+            <li>
+              <a href="{% url 'account_signup' %}">Sign Up</a>
+            </li>
+          {% endif %}
         </ul>
       </nav>
     </header>
