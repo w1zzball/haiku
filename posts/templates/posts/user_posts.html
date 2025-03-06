@@ -1,7 +1,7 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
-  <h1>{{ user.username }}'s Posts</h1>
+  <h1>{{ viewed_user.username }}'s Posts</h1>
   <ul>
     {% for post in posts %}
       <li>

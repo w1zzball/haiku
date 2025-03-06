@@ -21,3 +21,9 @@ class UserPostsListView(ListView):
         # Get the Profile instance
         profile = get_object_or_404(Profile, user=user)
         return Post.objects.filter(author=profile).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['viewed_user'] = get_object_or_404(
+            User, username=self.kwargs.get('username'))
+        return context
