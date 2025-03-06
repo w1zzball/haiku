@@ -13,6 +13,8 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts'
     )
+    likes = models.PositiveIntegerField(default=0)
+    # likes currently not tied to any user TODO full implementation
 
     def __str__(self):
         return f"{self.body[:50]}... | {self.author}"
