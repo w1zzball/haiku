@@ -23,5 +23,7 @@ urlpatterns = [
     path('user/', include('posts.urls')),
     # allauth URLs
     path('accounts/', include('allauth.urls')),
+    # homepage
+    path('', include('home.urls')),
 
 ]

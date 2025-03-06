@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # custom apps
     'profiles',
     'posts',
+    'home',
 ]
 
 SITE_ID = 1
