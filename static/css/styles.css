@@ -221,3 +221,44 @@ nav ul li a {
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
 }
+
+/* Profile edit styles */
+.profile-pic {
+  position: relative;
+}
+
+#change-pic-btn {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(52, 152, 219, 0.8);
+  display: none;
+}
+
+.profile-pic:hover #change-pic-btn {
+  display: block;
+}
+
+#edit-bio-btn {
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.file-input-container {
+  margin-bottom: 15px;
+}
+
+#bio-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-cancel {
+  background-color: #95a5a6;
+}
