@@ -125,7 +125,14 @@ The post model holds the users posts. It is linked to the posters profile and wi
 
 #### Implemented Features
 
+- users can create an account
+- users can log in
+- anyone can view profiles
+- homepage shows users posts
+
 #### Future Additions
+
+- set profile to private
 
 ## Agile Methodologies
 
@@ -134,6 +141,8 @@ The post model holds the users posts. It is linked to the posters profile and wi
 ---
 
 ## Deployment
+
+- deployed to heroku
 
 ---
 
@@ -154,6 +163,17 @@ The post model holds the users posts. It is linked to the posters profile and wi
 ---
 
 ## Technologies Used
+
+-HTML5
+-CSS3
+-JavaScript
+-Python
+-Django
+-PostgreSQL
+-Cloudinary
+-Whitenoise
+-Balsamiq
+-dbdiagram.io
 
 ---
 

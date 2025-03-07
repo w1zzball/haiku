@@ -2,15 +2,11 @@
 
 {% block content %}
   <h1>{{ viewed_user.username }}'s Posts</h1>
-  <ul>
+  <ul class="post-list">
     {% for post in posts %}
-      <li>
-        {% comment %} <h2>{{ post.title }}</h2> {% endcomment %}
-        <p>{{ post.body }}</p>
-        <p>
-          <small>Posted on {{ post.created_at }}</small>
-        </p>
-      </li>
+      {% include 'posts/includes/post_item.html' with post=post show_author=False %}
+    {% empty %}
+      <li>No posts yet!</li>
     {% endfor %}
   </ul>
 {% endblock %}
