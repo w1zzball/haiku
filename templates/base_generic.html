@@ -25,6 +25,9 @@
               <a href="{% url 'user-posts' username=user.username %}">My Posts</a>
             </li>
             <li>
+              <a href="#" id="new-post-button">New Post</a>
+            </li>
+            <li>
               <a href="{% url 'account_logout' %}">Logout</a>
             </li>
           {% else %}
@@ -46,5 +49,94 @@
     <footer>
       <p>&copy; 2025 My Site</p>
     </footer>
+    <!-- Overlay for creating a new post -->
+    {% if user.is_authenticated %}
+      <div id="post-form-overlay" class="overlay">
+        <div class="overlay-content">
+          <h2>Create a New Post</h2>
+          <div id="post-form-container">
+            <!-- Form will be loaded here via JavaScript -->
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const newPostButton = document.getElementById('new-post-button')
+          const overlay = document.getElementById('post-form-overlay')
+          const formContainer = document.getElementById('post-form-container')
+        
+          // Get CSRF token from cookie
+          function getCookie(name) {
+            let cookieValue = null
+            if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';')
+              for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim()
+                if (cookie.substring(0, name.length + 1) === name + '=') {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+                  break
+                }
+              }
+            }
+            return cookieValue
+          }
+          const csrftoken = getCookie('csrftoken')
+        
+          // Show the form overlay when "New Post" is clicked
+          newPostButton.addEventListener('click', function (e) {
+            e.preventDefault()
+        
+            // Fetch the form via AJAX
+            fetch('{% url "create-post" %}', {
+              method: 'GET',
+              headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrftoken
+              }
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                formContainer.innerHTML = data.form
+                overlay.style.display = 'flex'
+        
+                // Add event listener for form submission
+                const postForm = document.getElementById('post-form')
+                postForm.addEventListener('submit', function (e) {
+                  e.preventDefault()
+        
+                  // Submit form data via AJAX
+                  fetch('{% url "create-post" %}', {
+                    method: 'POST',
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest',
+                      'X-CSRFToken': csrftoken
+                    },
+                    body: new FormData(this)
+                  }).then((response) => {
+                    if (response.ok) {
+                      // Redirect or update UI as needed
+                      window.location.reload()
+                    }
+                  })
+                })
+        
+                // Add cancel button functionality
+                document.getElementById('cancel-post').addEventListener('click', function () {
+                  overlay.style.display = 'none'
+                })
+              })
+          })
+        
+          // Close the overlay when clicking outside the form
+          overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) {
+              overlay.style.display = 'none'
+            }
+          })
+        })
+      </script>
+    {% endif %}
   </body>
 </html>

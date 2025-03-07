@@ -1,0 +1,8 @@
+<form id="post-form" method="post" action="{% url 'create-post' %}">
+  {% csrf_token %}
+  {{ form }}
+  <div class="form-actions">
+    <button type="submit" class="btn">Submit</button>
+    <button type="button" class="btn btn-cancel" id="cancel-post">Cancel</button>
+  </div>
+</form>
