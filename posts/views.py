@@ -55,3 +55,46 @@ def create_post(request):
 
     # Otherwise redirect to home
     return redirect('home')
+
+
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    # Check if user is the author
+    if post.author != request.user.profile:
+        return JsonResponse({'error': 'Not authorized'}, status=403)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({
+                'success': True,
+                'body': post.body,
+                'post_id': post.id
+            })
+        return JsonResponse({'error': form.errors}, status=400)
+
+    # GET request returns form HTML
+    form_html = render_to_string(
+        'posts/includes/edit_post_form.html',
+        {'post': post},
+        request=request
+    )
+    return JsonResponse({'form': form_html})
+
+
+@login_required
+def delete_post(request, post_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    post = get_object_or_404(Post, id=post_id)
+
+    # Check if user is the author
+    if post.author != request.user.profile:
+        return JsonResponse({'error': 'Not authorized'}, status=403)
+
+    post.delete()
+    return JsonResponse({'success': True})

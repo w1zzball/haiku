@@ -1,0 +1,8 @@
+<form class="edit-post-form" data-post-id="{{ post.id }}">
+  {% csrf_token %}
+  <textarea class="post-form-textarea" name="body">{{ post.body }}</textarea>
+  <div class="form-actions">
+    <button type="submit" class="btn save-edit-btn">Save</button>
+    <button type="button" class="btn btn-cancel cancel-edit-btn">Cancel</button>
+  </div>
+</form>

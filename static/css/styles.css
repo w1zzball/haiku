@@ -143,3 +143,27 @@ nav ul li a {
 .btn-cancel {
   background-color: #95a5a6;
 }
+
+/* Animation for deleting posts */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* Styling for post action buttons */
+.post-actions {
+  margin-left: 10px;
+}
+
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+}
+
+.edit-post-form {
+  margin-top: 10px;
+}

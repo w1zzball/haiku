@@ -1,11 +1,19 @@
-<li class="post-item">
+{% comment %}this should always be embedded in a list{% endcomment %}
+<li class="post-item" data-post-id="{{ post.id }}">
   <div class="post-content">
-    <p>{{ post.body }}</p>
+    <p class="post-body">{{ post.body }}</p>
     <p class="post-meta">
       {% if show_author %}
         By <a href="{% url 'user-posts' username=post.author.user.username %}">{{ post.author }}</a> ·
       {% endif %}
       <small>Posted on {{ post.created_at|date:'F j, Y' }}</small>
+
+      {% if user.is_authenticated and user.profile == post.author %}
+        <span class="post-actions">
+          <button class="btn btn-sm edit-post-btn" data-post-id="{{ post.id }}">Edit</button>
+          <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="{{ post.id }}">Delete</button>
+        </span>
+      {% endif %}
     </p>
   </div>
 </li>
