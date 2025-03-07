@@ -19,10 +19,14 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # /user/<uname>/ URL configuration
+    path('user/', include('profiles.urls')),
+
     # /user/<uname>/posts/ URL configuration
     path('user/', include('posts.urls')),
     # allauth URLs
     path('accounts/', include('allauth.urls')),
+
     # homepage
     path('', include('home.urls')),
 

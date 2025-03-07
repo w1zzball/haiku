@@ -130,6 +130,7 @@ The post model holds the users posts. It is linked to the posters profile and wi
 - anyone can view profiles
 - homepage shows users posts
 - users can create posts (using ajax for seamless posting)
+- CRUD for posts
 
 #### Future Additions
 

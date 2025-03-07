@@ -1,0 +1,95 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+  {{ viewed_user.username }}'s Profile
+{% endblock %}
+
+{% block content %}
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-pic">
+        {% if profile.profile_pic %}
+          <img src="{{ profile.profile_pic.url }}" alt="{{ viewed_user.username }}'s profile picture" />
+        {% else %}
+          <div class="default-profile-pic">{{ viewed_user.username|first|upper }}</div>
+        {% endif %}
+
+        {% if user.is_authenticated and user == viewed_user %}
+          <button id="change-pic-btn" class="btn btn-sm">Change Picture</button>
+        {% endif %}
+      </div>
+
+      <div class="profile-info">
+        <h1>{{ viewed_user.username }}</h1>
+        <div class="profile-bio">
+          {% if profile.bio %}
+            <div id="bio-content">{{ profile.bio }}</div>
+          {% else %}
+            <div id="bio-content">
+              <em>No bio yet.</em>
+            </div>
+          {% endif %}
+
+          {% if user.is_authenticated and user == viewed_user %}
+            <button id="edit-bio-btn" class="btn btn-sm">Edit Bio</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-posts">
+      <h2>Posts</h2>
+      <ul class="post-list">
+        {% for post in posts %}
+          {% include 'posts/includes/post_item.html' with post=post show_author=False %}
+        {% empty %}
+          <li>No posts yet!</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% if user.is_authenticated and user == viewed_user %}
+    <!-- Bio Edit Overlay -->
+    <div id="bio-edit-overlay" class="overlay">
+      <div class="overlay-content">
+        <h2>Edit Your Bio</h2>
+        <form id="bio-form">
+          {% csrf_token %}
+          <textarea id="bio-textarea" maxlength="500">{{ profile.bio }}</textarea>
+          <div class="form-actions">
+            <button type="submit" class="btn">Save</button>
+            <button type="button" class="btn btn-cancel" id="cancel-bio-edit">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Profile Picture Edit Overlay -->
+    <div id="pic-edit-overlay" class="overlay">
+      <div class="overlay-content">
+        <h2>Change Profile Picture</h2>
+        <form id="pic-form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="file-input-container">
+            <input type="file" id="profile-pic-input" name="profile_pic" accept="image/*" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn">Upload</button>
+            <button type="button" class="btn btn-cancel" id="cancel-pic-edit">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+  {% if user.is_authenticated and user == viewed_user %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        setupProfileEditing()
+      })
+    </script>
+  {% endif %}
+{% endblock %}

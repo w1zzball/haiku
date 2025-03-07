@@ -22,6 +22,9 @@
           </li>
           {% if user.is_authenticated %}
             <li>
+              <a href="{% url 'profile' username=user.username %}">My Profile</a>
+            </li>
+            <li>
               <a href="{% url 'user-posts' username=user.username %}">My Posts</a>
             </li>
             <li>
