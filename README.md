@@ -127,14 +127,17 @@ The post model holds the users posts. It is linked to the posters profile and wi
 
 - users can create an account
 - users can log in
+- logged in users can update their profile, including profile pictures
+- logged in users have the option to delete their profile
 - anyone can view profiles
 - homepage shows users posts
-- users can create posts (using ajax for seamless posting)
-- CRUD for posts
+- users can create posts,edit and delete posts (using ajax for seamless posting)
+-
 
 #### Future Additions
 
 - set profile to private
+- add followers / likes
 
 ## Agile Methodologies
 
