@@ -108,3 +108,65 @@ function setupProfileEditing() {
         });
     });
 }
+
+// Profile deletion functionality
+const csrftoken = getCookie('csrftoken');
+
+const deleteProfileBtn = document.getElementById('delete-profile-btn');
+const deleteProfileOverlay = document.getElementById('delete-profile-overlay');
+const cancelDeleteProfileBtn = document.getElementById('cancel-delete-profile');
+
+if (deleteProfileBtn && deleteProfileOverlay && cancelDeleteProfileBtn) {
+    deleteProfileBtn.addEventListener('click', function () {
+        deleteProfileOverlay.style.display = 'flex';
+    });
+
+    cancelDeleteProfileBtn.addEventListener('click', function () {
+        deleteProfileOverlay.style.display = 'none';
+    });
+
+    // Close delete overlay when clicking outside
+    deleteProfileOverlay.addEventListener('click', function (e) {
+        if (e.target === deleteProfileOverlay) {
+            deleteProfileOverlay.style.display = 'none';
+        }
+    });
+
+    // Handle form submission with confirmation
+    const deleteProfileForm = document.getElementById('delete-profile-form');
+    deleteProfileForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Second confirmation
+        if (confirm("This will permanently delete your account. Are you absolutely sure?")) {
+            const formData = new FormData(deleteProfileForm);
+
+            fetch('/user/delete-profile/', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': csrftoken
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Redirect to home page or show success message
+                        window.location.href = data.redirect_url || '/';
+                    } else {
+                        alert(data.error || 'There was an error deleting your profile.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error processing your request.');
+                });
+        }
+    });
+}
+
+// Make sure to call setupProfileEditing when the DOM is loaded
+document.addEventListener('DOMContentLoaded', function () {
+    setupProfileEditing();
+});

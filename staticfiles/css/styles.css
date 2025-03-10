@@ -262,3 +262,17 @@ nav ul li a {
 .btn-cancel {
   background-color: #95a5a6;
 }
+
+/* New post highlight animation */
+@keyframes highlightNew {
+  0% {
+    background-color: rgba(46, 204, 113, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.new-post-highlight {
+  animation: highlightNew 2s ease-out;
+}

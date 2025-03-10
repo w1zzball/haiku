@@ -45,9 +45,23 @@ def create_post(request):
             post = form.save(commit=False)
             post.author = request.user.profile
             post.save()
+
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                return JsonResponse({'success': True})
+                # Return more data for AJAX requests to update the UI
+                return JsonResponse({
+                    'success': True,
+                    'post_id': post.id,
+                    'body': post.body,
+                    'created_at': post.created_at.strftime('%B %d, %Y'),
+                    'author': post.author.user.username
+                })
             return redirect('home')
+        elif request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            # Return validation errors for AJAX requests
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
     else:
         form = PostForm()
 
