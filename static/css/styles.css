@@ -262,3 +262,30 @@ nav ul li a {
 .btn-cancel {
   background-color: #95a5a6;
 }
+
+/* Profile deletion styles */
+.profile-actions {
+  margin-top: 15px;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.delete-confirmation {
+  text-align: center;
+}
+
+.delete-confirmation p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.delete-confirmation .btn-danger {
+  margin-right: 10px;
+}

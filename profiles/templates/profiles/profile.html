@@ -7,6 +7,11 @@
 {% block content %}
   <div class="profile-container">
     <div class="profile-header">
+      {% if user.is_authenticated and user == viewed_user %}
+        <div class="profile-actions">
+          <button id="delete-profile-btn" class="btn btn-danger">Delete Account</button>
+        </div>
+      {% endif %}
       <div class="profile-pic">
         {% if profile.profile_pic %}
           <img src="{{ profile.profile_pic.url }}" alt="{{ viewed_user.username }}'s profile picture" />
@@ -50,6 +55,22 @@
   </div>
 
   {% if user.is_authenticated and user == viewed_user %}
+    <!-- Delete Profile Confirmation Overlay -->
+    <div id="delete-profile-overlay" class="overlay">
+      <div class="overlay-content delete-confirmation">
+        <h2>Delete Your Account</h2>
+        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+        <p>All your posts and profile information will be permanently removed.</p>
+
+        <form id="delete-profile-form" method="post" action="{% url 'delete-profile' %}">
+          {% csrf_token %}
+          <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Yes, Delete My Account</button>
+            <button type="button" class="btn btn-cancel" id="cancel-delete-profile">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <!-- Bio Edit Overlay -->
     <div id="bio-edit-overlay" class="overlay">
       <div class="overlay-content">

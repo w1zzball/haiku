@@ -8,7 +8,11 @@ from .models import Post
 from profiles.models import Profile
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-
+import logging
+from django.contrib import messages
+from django.views.decorators.http import require_POST
+# Set up logger
+logger = logging.getLogger(__name__)
 # Create your views here.
 
 
@@ -98,3 +102,39 @@ def delete_post(request, post_id):
 
     post.delete()
     return JsonResponse({'success': True})
+
+
+@login_required
+@require_POST
+def delete_profile(request):
+    """Delete the user's profile"""
+    user = request.user
+
+    try:
+        # Delete the user (this will cascade delete the profile due to OneToOneField)
+        user.delete()
+
+        # If AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': True,
+                'redirect_url': '/'
+            })
+
+        # For non-AJAX requests
+        return redirect('home')
+
+    except Exception as e:
+        # Log the error
+        logger.error(f"Error deleting profile for {user.username}: {str(e)}")
+
+        # If AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'error': 'There was an error deleting your profile.'
+            }, status=500)
+
+        # For non-AJAX requests
+        messages.error(request, 'There was an error deleting your profile.')
+        return redirect('profile', username=user.username)
