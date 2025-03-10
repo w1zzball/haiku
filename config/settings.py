@@ -134,6 +134,30 @@ else:
     }
 
 
+# CSRF Settings
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.herokuapp.com',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
+
+CSRF_COOKIE_SECURE = True  # Only send cookie over HTTPS
+CSRF_COOKIE_SAMESITE = 'Strict'  # Protect against CSRF
+SESSION_COOKIE_SECURE = True  # Only send session cookie over HTTPS
+
+# Security Headers
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
+
+# # Only set these in production
+# if not DEBUG:
+#     SECURE_BROWSER_XSS_FILTER = True
+#     SECURE_CONTENT_TYPE_NOSNIFF = True
+#     SECURE_HSTS_SECONDS = 31536000  # 1 year
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#     SECURE_HSTS_PRELOAD = True
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
