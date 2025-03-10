@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const csrftoken = getCookie('csrftoken')
-
     document.body.addEventListener('click', function (e) {
         if (e.target.classList.contains('edit-post-btn')) {
             const postId = e.target.dataset.postId
@@ -9,13 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const originalContent = postContent.innerHTML
 
             fetch(`/user/edit/${postId}/`, {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': csrftoken,
-                    'Accept': 'application/json'
-                },
-                credentials: 'same-origin'
+                method: 'GET'
             })
                 .then(response => response.json())
                 .then((data) => {
@@ -36,17 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Handle form submission
                     editForm.addEventListener('submit', function (e) {
                         e.preventDefault()
-                        // Use the CSRF token that's already in the form
                         const formData = new FormData(editForm)
 
                         fetch(`/user/edit/${postId}/`, {
                             method: 'POST',
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest',
-                                'X-CSRFToken': csrftoken,
-                                'Accept': 'application/json'
-                            },
-                            credentials: 'same-origin',
                             body: formData
                         })
                             .then(response => response.json())

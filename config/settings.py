@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEBUG' in os.environ
-
+print(f"DEBUG: {DEBUG}")
 ALLOWED_HOSTS = ['.herokuapp.com',
                  'localhost',
                  '127.0.0.1']
@@ -142,8 +142,21 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
 ]
 
-# Add this after CSRF_TRUSTED_ORIGINS
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# CSRF_COOKIE_SECURE = True  # Only send cookie over HTTPS
+# CSRF_COOKIE_SAMESITE = 'Strict'  # Protect against CSRF
+# SESSION_COOKIE_SECURE = True  # Only send session cookie over HTTPS
+
+# # Security Headers
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
+
+# # Only set these in production
+# if not DEBUG:
+#     SECURE_BROWSER_XSS_FILTER = True
+#     SECURE_CONTENT_TYPE_NOSNIFF = True
+#     SECURE_HSTS_SECONDS = 31536000  # 1 year
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#     SECURE_HSTS_PRELOAD = True
 
 # Add after CSRF settings
 CSRF_COOKIE_SAMESITE = 'Lax'  # Use 'None' with CSRF_COOKIE_SECURE=True if needed
