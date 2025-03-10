@@ -11,6 +11,9 @@ from django.template.loader import render_to_string
 import logging
 from django.contrib import messages
 from django.views.decorators.http import require_POST
+from static.helpers.haiku_helpers import format_haiku, is_haiku
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 # Set up logger
 logger = logging.getLogger(__name__)
 # Create your views here.
@@ -37,70 +40,68 @@ class UserPostsListView(ListView):
         return context
 
 
+@ensure_csrf_cookie
 @login_required
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
+            text = form.cleaned_data['body']
+            formatted_haiku = format_haiku(text)
+
+            if not formatted_haiku:
+                return JsonResponse({
+                    'success': False,
+                    'errors': {'body': ['Text must follow the 5-7-5 syllable pattern of a haiku.']}
+                })
+
             post = form.save(commit=False)
+            # Changed from request.user to request.user.profile
             post.author = request.user.profile
+            post.body = formatted_haiku
             post.save()
 
-            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                # Return more data for AJAX requests to update the UI
-                return JsonResponse({
-                    'success': True,
-                    'post_id': post.id,
-                    'body': post.body,
-                    'created_at': post.created_at.strftime('%B %d, %Y'),
-                    'author': post.author.user.username
-                })
-            return redirect('home')
-        elif request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            # Return validation errors for AJAX requests
             return JsonResponse({
-                'success': False,
-                'errors': form.errors
-            }, status=400)
-    else:
-        form = PostForm()
+                'success': True,
+                'post_id': post.id,
+                'body': post.body
+            })
+        return JsonResponse({'success': False, 'errors': form.errors})
 
-    # If it's an AJAX request, return the form HTML
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        form_html = render_to_string(
-            'posts/includes/post_form.html', {'form': form}, request=request)
-        return JsonResponse({'form': form_html})
-
-    # Otherwise redirect to home
-    return redirect('home')
+    form = PostForm()
+    return JsonResponse({'form': render_to_string('posts/includes/post_form.html', {'form': form})})
 
 
+@ensure_csrf_cookie
 @login_required
 def edit_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-
-    # Check if user is the author
-    if post.author != request.user.profile:
-        return JsonResponse({'error': 'Not authorized'}, status=403)
+    # Changed from author=request.user to author=request.user.profile
+    post = get_object_or_404(Post, id=post_id, author=request.user.profile)
 
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            form.save()
+            text = form.cleaned_data['body']
+            formatted_haiku = format_haiku(text)
+
+            if not formatted_haiku:
+                return JsonResponse({
+                    'success': False,
+                    'errors': {'body': ['Text must follow the 5-7-5 syllable pattern of a haiku.']}
+                })
+
+            post = form.save(commit=False)
+            post.body = formatted_haiku
+            post.save()
+
             return JsonResponse({
                 'success': True,
-                'body': post.body,
-                'post_id': post.id
+                'body': post.body
             })
-        return JsonResponse({'error': form.errors}, status=400)
+        return JsonResponse({'success': False, 'errors': form.errors})
 
-    # GET request returns form HTML
-    form_html = render_to_string(
-        'posts/includes/edit_post_form.html',
-        {'post': post},
-        request=request
-    )
-    return JsonResponse({'form': form_html})
+    form = PostForm(instance=post)
+    return JsonResponse({'form': render_to_string('posts/includes/post_form.html', {'form': form})})
 
 
 @login_required

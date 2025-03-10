@@ -13,8 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('/user/create/', {
             method: 'GET',
             headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': csrftoken
+                'X-Requested-With': 'XMLHttpRequest'
             }
         })
             .then((response) => response.json())
@@ -25,14 +24,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 const postForm = document.getElementById('post-form')
                 postForm.addEventListener('submit', function (e) {
                     e.preventDefault()
+                    const formData = new FormData(this)
+
+                    // Add CSRF token manually if not present
+                    if (!formData.get('csrfmiddlewaretoken')) {
+                        const csrfInput = document.createElement('input')
+                        csrfInput.type = 'hidden'
+                        csrfInput.name = 'csrfmiddlewaretoken'
+                        csrfInput.value = csrftoken
+                        postForm.appendChild(csrfInput)
+                        formData.append('csrfmiddlewaretoken', csrftoken)
+                    }
 
                     fetch('/user/create/', {
                         method: 'POST',
                         headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'X-CSRFToken': csrftoken
+                            'X-Requested-With': 'XMLHttpRequest'
                         },
-                        body: new FormData(this)
+                        body: formData
                     })
                         .then((response) => response.json())
                         .then((data) => {

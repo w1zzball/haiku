@@ -14,25 +14,32 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': csrftoken
-            }
+                'X-CSRFToken': csrftoken,
+                'Accept': 'application/json'
+            },
+            credentials: 'same-origin'
         })
             .then((response) => response.json())
             .then((data) => {
                 formContainer.innerHTML = data.form
                 overlay.style.display = 'flex'
 
-                const postForm = document.getElementById('post-form')
+                const postForm = formContainer.querySelector('.post-form')
                 postForm.addEventListener('submit', function (e) {
                     e.preventDefault()
+
+                    // Use the CSRF token that's already in the form
+                    const formData = new FormData(postForm)
 
                     fetch('/user/create/', {
                         method: 'POST',
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
-                            'X-CSRFToken': csrftoken
+                            'X-CSRFToken': csrftoken,
+                            'Accept': 'application/json'
                         },
-                        body: new FormData(this)
+                        credentials: 'same-origin',
+                        body: formData
                     })
                         .then((response) => response.json())
                         .then((data) => {

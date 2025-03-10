@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'profiles',
     'posts',
     'home',
+    'api',
 ]
 
 SITE_ID = 1

@@ -9,40 +9,47 @@ document.addEventListener('DOMContentLoaded', function () {
             const originalContent = postContent.innerHTML
 
             fetch(`/user/edit/${postId}/`, {
+                method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': csrftoken
-                }
+                    'X-CSRFToken': csrftoken,
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin'
             })
-                .then((response) => response.json())
+                .then(response => response.json())
                 .then((data) => {
                     if (!data.form) {
-                        console.error('No form data received');
-                        return;
+                        console.error('No form data received')
+                        return
                     }
 
                     postContent.innerHTML = data.form
 
-                    const editForm = postContent.querySelector('.edit-post-form')
-                    const cancelBtn = editForm.querySelector('.cancel-edit-btn')
+                    const editForm = postContent.querySelector('.post-form')
+                    const cancelBtn = editForm.querySelector('#cancel-post')
 
                     cancelBtn.addEventListener('click', function () {
                         postContent.innerHTML = originalContent
                     })
 
+                    // Handle form submission
                     editForm.addEventListener('submit', function (e) {
                         e.preventDefault()
-
+                        // Use the CSRF token that's already in the form
                         const formData = new FormData(editForm)
+
                         fetch(`/user/edit/${postId}/`, {
                             method: 'POST',
                             headers: {
                                 'X-Requested-With': 'XMLHttpRequest',
-                                'X-CSRFToken': csrftoken
+                                'X-CSRFToken': csrftoken,
+                                'Accept': 'application/json'
                             },
+                            credentials: 'same-origin',
                             body: formData
                         })
-                            .then((response) => response.json())
+                            .then(response => response.json())
                             .then((data) => {
                                 if (data.success && data.body) {
                                     postContent.innerHTML = originalContent
@@ -50,8 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                     if (bodyElement) {
                                         bodyElement.textContent = data.body
                                     }
-                                } else {
-                                    console.error('Update failed or no body content received');
+                                } else if (data.errors) {
+                                    const errorMessages = Object.values(data.errors).flat()
+                                    alert('Error: ' + errorMessages.join('\n'))
                                 }
                             })
                             .catch((error) => {
