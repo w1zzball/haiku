@@ -11,36 +11,22 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault()
 
         fetch('/user/create/', {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+            method: 'GET'
         })
             .then((response) => response.json())
             .then((data) => {
                 formContainer.innerHTML = data.form
                 overlay.style.display = 'flex'
 
-                const postForm = document.getElementById('post-form')
+                const postForm = formContainer.querySelector('.post-form')
                 postForm.addEventListener('submit', function (e) {
                     e.preventDefault()
-                    const formData = new FormData(this)
 
-                    // Add CSRF token manually if not present
-                    if (!formData.get('csrfmiddlewaretoken')) {
-                        const csrfInput = document.createElement('input')
-                        csrfInput.type = 'hidden'
-                        csrfInput.name = 'csrfmiddlewaretoken'
-                        csrfInput.value = csrftoken
-                        postForm.appendChild(csrfInput)
-                        formData.append('csrfmiddlewaretoken', csrftoken)
-                    }
+                    // Use the CSRF token that's already in the form
+                    const formData = new FormData(postForm)
 
                     fetch('/user/create/', {
                         method: 'POST',
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
                         body: formData
                     })
                         .then((response) => response.json())

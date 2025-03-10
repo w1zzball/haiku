@@ -11,13 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault()
 
         fetch('/user/create/', {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': csrftoken,
-                'Accept': 'application/json'
-            },
-            credentials: 'same-origin'
+            method: 'GET'
         })
             .then((response) => response.json())
             .then((data) => {
@@ -33,12 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     fetch('/user/create/', {
                         method: 'POST',
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'X-CSRFToken': csrftoken,
-                            'Accept': 'application/json'
-                        },
-                        credentials: 'same-origin',
                         body: formData
                     })
                         .then((response) => response.json())
