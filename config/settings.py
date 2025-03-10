@@ -137,10 +137,18 @@ else:
 # CSRF Settings
 CSRF_TRUSTED_ORIGINS = [
     'https://*.herokuapp.com',
+    'https://haiku-microblog-ff81dfcf5cfd.herokuapp.com/'
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
 
+# Add this after CSRF_TRUSTED_ORIGINS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Add after CSRF settings
+CSRF_COOKIE_SAMESITE = 'Lax'  # Use 'None' with CSRF_COOKIE_SECURE=True if needed
+# Use 'None' with SESSION_COOKIE_SECURE=True if needed
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
