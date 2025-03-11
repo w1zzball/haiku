@@ -45,8 +45,6 @@ description of site
 
 -Mindfulness Enthusiasts: Individuals seeking moments of calm, reflection, and mindfulness through the meditative nature of haiku-writing.
 
--Fans of Structured Creativity: Inspired by the concepts in The Five Obstructions, these are people who enjoy working within boundaries to unlock new perspectives and ideas.
-
 -Social Media Users Seeking Novelty: Those looking for a unique and refreshing alternative to traditional microblogging platforms.
 
 -Educators and Students: Teachers and learners interested in using the platform as a tool to explore creative writing, language, and the beauty of constraints.
@@ -125,19 +123,44 @@ The post model holds the users posts. It is linked to the posters profile and wi
 
 #### Implemented Features
 
-- users can create an account
-- users can log in
-- logged in users can update their profile, including profile pictures
-- logged in users have the option to delete their profile
-- anyone can view profiles
-- homepage shows users posts
-- users can create posts,edit and delete posts (using ajax for seamless posting)
--
+- User Authentication & Profile Management
+  - User registration and login system
+  - Profile creation and customization
+  - Profile picture upload and management via Cloudinary
+  - Profile deletion capability
+  - Public profile viewing
+- Post Management
+  - Create, edit and delete posts
+  - AJAX-powered posting for seamless user experience
+  - Haiku validation system ensuring proper syllable structure (5-7-5)
+  - Homepage feed showing all users' posts
+  - Input sanitization and cleaning
 
 #### Future Additions
 
-- set profile to private
-- add followers / likes
+- Social Features
+  - Follow/unfollow other users
+  - Like/unlike posts
+  - Comment system on posts
+  - Private messaging between users
+  - Share posts functionality
+- Profile Enhancements
+  - Private/public profile toggle
+  - Custom themes/styling for individual profiles
+  - Profile statistics (posts count, likes received, etc.)
+  - Achievement/badge system for active users
+- Content Features
+  - Categorize haikus by themes/topics
+  - Search functionality for posts and users
+  - Trending haikus section
+  - Featured poets/posts section
+  - Seasonal themes and prompts
+- Educational Components
+  - Tutorial section for haiku writing
+  - Writing prompts and challenges
+  - Resources about haiku history and structure
+
+---
 
 ## Agile Methodologies
 

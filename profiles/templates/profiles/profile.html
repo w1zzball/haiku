@@ -41,7 +41,9 @@
         </div>
       </div>
     </div>
-
+    <div class="profile-joined-date">
+      <em>Member since: {{ viewed_user.date_joined|date:'F j, Y' }}</em>
+    </div>
     <div class="profile-posts">
       <h2>Posts</h2>
       <ul class="post-list">
