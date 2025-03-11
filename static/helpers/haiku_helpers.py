@@ -29,7 +29,11 @@ def syllables(word: str) -> int:
         'meant': 1,
         'grace': 1,
         'dance': 1,
-        'ease': 1
+        'ease': 1,
+        'veiled': 1,
+        'snowflakes': 2,
+        'twinkle': 2,
+        'curled': 1
     }
     if clean_word in known_words:
         return known_words[clean_word]
@@ -39,12 +43,23 @@ def syllables(word: str) -> int:
     vowels = "aeiouy"
     prev_is_vowel = False
 
-    # Handle common 'ea' patterns
+    # Handle 'ed' endings after consonants
+    if clean_word.endswith('ed'):
+        # If preceded by 't' or 'd', 'ed' is pronounced (waited, needed)
+        # Otherwise after a consonant it's silent (jumped, called)
+        if len(clean_word) > 2 and clean_word[-3] not in vowels and clean_word[-3] not in 'td':
+            clean_word = clean_word[:-1]  # Remove d, treating 'ed' as 'e'
+
+    # Handle common vowel patterns
     if 'ea' in clean_word:
         if clean_word.endswith('es'):
             clean_word = clean_word[:-2] + 'e'  # Treat 'es' ending as silent
         elif not any(ending in clean_word for ending in ['each', 'ead', 'eal', 'eam', 'ean']):
             clean_word = clean_word.replace('ea', 'ee')
+
+    # Handle 'ei' patterns similar to 'ea'
+    if 'ei' in clean_word:
+        clean_word = clean_word.replace('ei', 'ee')
 
     # Handle common 'ie' patterns
     if 'ie' in clean_word and not clean_word.endswith('ie'):
@@ -63,6 +78,11 @@ def syllables(word: str) -> int:
     if clean_word.endswith("e") and count > 1 and clean_word[-2] not in vowels:
         count -= 1
 
+    # Handle endings that usually form syllables
+    if any(clean_word.endswith(ending) for ending in ['le', 'les']) and not clean_word[-3] in vowels:
+        # Words ending in 'le' should have at least 2 syllables
+        count = max(count, 2)
+
     # Handle 'ly' ending - usually adds a syllable
     if clean_word.endswith('ly'):
         # Words ending in 'ly' should have at least 2 syllables
@@ -73,11 +93,16 @@ def syllables(word: str) -> int:
 
 def clean_text(text: str) -> list:
     """Clean arbitrary text and return a list of words."""
-    # Replace newlines and multiple spaces with single spaces
+    # Remove line numbers and periods at start
     text = ' '.join(text.split())
-    # Remove all punctuation except apostrophes
-    words = [word.strip('.,;:!?"()[]{}') for word in text.split()]
-    return [word for word in words if word]
+    text = ' '.join(word for word in text.split() if not word[0].isdigit())
+
+    # Keep only letters, apostrophes, and spaces
+    cleaned = ''.join(char for char in text if char.isalpha() or char in "' ")
+
+    # Split into words and remove empty strings
+    words = [word for word in cleaned.split() if word]
+    return words
 
 
 def haiku_syllable_count(text: str) -> int:
@@ -147,14 +172,15 @@ if __name__ == "__main__":
                     result = is_haiku(line)
                     formatted = format_haiku(line)
                     syllable_count = haiku_syllable_count(line)
-                    for word in line.split():
-                        print(f"{word} ({syllables(word)})", end=" ")
-
-                    print(
-                        f"\n {'Valid haiku' if result else 'Not a haiku'} | Syllable count: {syllable_count}")
+                    if not result:
+                        for word in line.split():
+                            print(f"{word} ({syllables(word)})", end=" ")
+                        print("\nnot a haiku"+"-" * 40)
+                    # print(
+                    #     f"\n {'Valid haiku' if result else 'Not a haiku'} | Syllable count: {syllable_count}")
                     # if formatted:
                     #     print(f"  Formatted:\n{formatted}")
-                    print("-" * 40)
+
         except FileNotFoundError:
             print(f"File not found: {filepath}")
         except Exception as e:
