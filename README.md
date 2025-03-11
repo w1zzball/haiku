@@ -69,6 +69,8 @@ description of site
 
 #### Design
 
+Given the simplicity and clarity of the haiku form, it feels natural that the website design should be likewise minimal and unobtrusive, as such I have opted for a light and clear style and an easy to read font
+
 #### Wireframes
 
 Initial wireframes made using Balsamiq
@@ -188,7 +190,33 @@ The post model holds the users posts. It is linked to the posters profile and wi
 
 #### Manual Testing
 
----
+## Manual Testing
+
+## Manual Testing
+
+The following table details the manual testing performed on the application:
+
+| Page    | Feature         | Action                                   | Effect                                            | Tested |
+| ------- | --------------- | ---------------------------------------- | ------------------------------------------------- | ------ |
+| Home    | Navigation      | Click on Logo                            | Redirects to home page                            | TBD    |
+| Home    | Login Form      | Enter valid credentials and submit       | Logs user in and redirects to feed                | ✅     |
+| Home    | Sign Up Link    | Click on Sign Up                         | Redirects to registration page                    | ✅     |
+| Home    | Log Out         | Click on Log Out button                  | Logs user out and redirects to login page         | ✅     |
+| Home    |                 |                                          |                                                   | ✅     |
+| Home    |                 |                                          |                                                   | ✅     |
+| Home    |                 |                                          |                                                   | ✅     |
+| Home    |                 |                                          |                                                   | ✅     |
+| Home    |                 |                                          |                                                   | ✅     |
+| Profile | Profile Picture | Upload new image                         | Updates profile picture in database and UI        | ✅     |
+| Profile | Bio             | Edit and save bio text                   | Updates bio in database and UI                    | ✅     |
+| Profile |                 |                                          |                                                   | ✅     |
+| Feed    | Create Post     | Enter haiku and click submit             | New post appears in feed without page refresh     | ✅     |
+| Feed    | Validation      | Enter text with incorrect syllable count | Error message displays explaining 5-7-5 structure | ✅     |
+| Posts   | Edit Post       | Click edit, modify text, save            | Post is updated with new content                  | ✅     |
+| Posts   | Delete Post     | Click delete button                      | Post is removed from feed                         | ✅     |
+| Account | Delete Account  | Go to settings, click delete account     | Account and associated data removed               | ✅     |
+
+## | Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately |
 
 ## Technologies Used
 
