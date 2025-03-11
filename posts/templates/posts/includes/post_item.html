@@ -1,11 +1,18 @@
 {% comment %}this should always be embedded in a list{% endcomment %}
 <li class="post-item" data-post-id="{{ post.id }}">
   <div class="post-content">
-    <p class="post-body">{{ post.body }}</p>
-    <p class="post-meta">
+    <div class="post-header">
       {% if show_author %}
-        By <a href="{% url 'user-posts' username=post.author.user.username %}">{{ post.author }}</a> ·
+        <div class="post-author">
+          <img src="{{ post.author.profile_pic.url|default:'https://via.placeholder.com/40' }}" alt="{{ post.author }}'s profile" class="profile-thumbnail" />
+          <a href="{% url 'user-posts' username=post.author.user.username %}">{{ post.author }}</a>
+        </div>
       {% endif %}
+    </div>
+
+    <p class="post-body">{{ post.body }}</p>
+
+    <div class="post-meta">
       <small>Posted on {{ post.created_at|date:'F j, Y' }}</small>
 
       {% if user.is_authenticated and user.profile == post.author %}
@@ -14,6 +21,6 @@
           <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="{{ post.id }}">Delete</button>
         </span>
       {% endif %}
-    </p>
+    </div>
   </div>
 </li>
