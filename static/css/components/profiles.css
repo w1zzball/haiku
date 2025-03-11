@@ -54,3 +54,32 @@
   margin-left: 10px;
   vertical-align: middle;
 }
+
+.profile-posts {
+  margin-top: 40px;
+}
+
+.profile-posts h2 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Center the no posts message */
+.post-list li:only-child:not(.post-item) {
+  text-align: center;
+  padding: 40px;
+  color: #95a5a6;
+  font-style: italic;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust post list width for profile page */
+.profile-container .post-list {
+  max-width: 100%;
+  margin-top: 20px;
+}
