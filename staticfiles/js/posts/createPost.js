@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
         postBody.className = 'post-body'
         postBody.textContent = data.body
 
-        const postMeta = document.createElement('p')
+        const postMeta = document.createElement('div')
         postMeta.className = 'post-meta'
 
         // Format current date in a friendly way
@@ -110,16 +110,30 @@ document.addEventListener('DOMContentLoaded', function () {
         const dateFormatted = now.toLocaleDateString('en-US', options)
 
         const postActionsHtml = `
-          <span class="post-actions">
-            <button class="btn btn-sm edit-post-btn" data-post-id="${data.post_id}">Edit</button>
-            <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="${data.post_id}">Delete</button>
-          </span>
+            <span class="post-actions">
+                <button class="btn btn-sm edit-post-btn" data-post-id="${data.post_id}">Edit</button>
+                <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="${data.post_id}">Delete</button>
+            </span>
         `
 
         postMeta.innerHTML = `<small>Posted on ${dateFormatted}</small> ${postActionsHtml}`
 
+        // Add like footer
+        const postFooter = document.createElement('div')
+        postFooter.className = 'post-footer'
+        postFooter.innerHTML = `
+            <div class="post-likes">
+                <button class="like-button" data-post-id="${data.post_id}" aria-label="Like this post">
+                    <i class="far fa-heart"></i>
+                </button>
+                <span class="like-count" data-post-id="${data.post_id}">0</span>
+                <span class="like-label">likes</span>
+            </div>
+        `
+
         postContent.appendChild(postBody)
         postContent.appendChild(postMeta)
+        postContent.appendChild(postFooter)
         li.appendChild(postContent)
 
         return li
