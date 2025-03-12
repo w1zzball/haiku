@@ -1,7 +1,7 @@
 #custom
 env.py
 refs/
-
+ideapad_req.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
