@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .forms import ProfileForm
+from django.views.generic import ListView
 # Create your views here.
 
 
@@ -65,3 +66,24 @@ def update_profile_pic(request):
             'success': False,
             'error': 'No image was uploaded.'
         }, status=400)
+
+
+class UserPostsListView(ListView):
+    model = Post
+    template_name = 'posts/user_posts.html'  # Specify your template name
+    context_object_name = 'posts'
+    # Order posts by creation date in descending order
+    ordering = ['-created_at']
+
+    def get_queryset(self):
+        username = self.kwargs.get('username')
+        user = get_object_or_404(User, username=username)
+        # Get the Profile instance
+        profile = get_object_or_404(Profile, user=user)
+        return Post.objects.filter(author=profile).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['viewed_user'] = get_object_or_404(
+            User, username=self.kwargs.get('username'))
+        return context
