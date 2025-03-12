@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     newPostButton.addEventListener('click', function (e) {
         e.preventDefault()
 
-        fetch('/user/create/', {
+        fetch('/posts/create/', {
             method: 'GET'
         })
             .then((response) => response.json())
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Use the CSRF token that's already in the form
                     const formData = new FormData(postForm)
 
-                    fetch('/user/create/', {
+                    fetch('/posts/create/', {
                         method: 'POST',
                         body: formData
                     })

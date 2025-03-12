@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const postItem = document.querySelector(`li.post-item[data-post-id="${postId}"]`)
 
             if (confirm('Are you sure you want to delete this post? This action cannot be undone.')) {
-                fetch(`/user/delete/${postId}/`, {
+                fetch(`/posts/delete/${postId}/`, {
                     method: 'POST',
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',

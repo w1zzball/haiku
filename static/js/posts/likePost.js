@@ -42,7 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Send request to server
-            fetch(`/posts/${postId}/${action}/`, {
+            const url = isLiked ?
+                `/posts/${postId}/unlike/` :
+                `/posts/${postId}/like/`;
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const postContent = postItem.querySelector('.post-content')
             const originalContent = postContent.innerHTML
 
-            fetch(`/user/edit/${postId}/`, {
+            fetch(`/posts/edit/${postId}/`, {
                 method: 'GET'
             })
                 .then(response => response.json())
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         e.preventDefault()
                         const formData = new FormData(editForm)
 
-                        fetch(`/user/edit/${postId}/`, {
+                        fetch(`/posts/edit/${postId}/`, {
                             method: 'POST',
                             body: formData
                         })
