@@ -1,3 +1,4 @@
+{% load post_filters %}
 {% comment %}this should always be embedded in a list{% endcomment %}
 <li class="post-item" data-post-id="{{ post.id }}">
   <div class="post-content">
@@ -20,6 +21,21 @@
           <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="{{ post.id }}">Delete</button>
         </span>
       {% endif %}
+    </div>
+
+    <!-- Fix the like functionality section -->
+    <div class="post-footer">
+      <div class="post-likes">
+        {% if user.is_authenticated %}
+          {% if post|is_liked_by:user.profile %}
+            <button class="like-button liked" data-post-id="{{ post.id }}" aria-label="Unlike this post"><i class="fas fa-heart"></i></button>
+          {% else %}
+            <button class="like-button" data-post-id="{{ post.id }}" aria-label="Like this post"><i class="far fa-heart"></i></button>
+          {% endif %}
+        {% endif %}
+        <span class="like-count" data-post-id="{{ post.id }}">{{ post.likes_count }}</span>
+        <span class="like-label">likes</span>
+      </div>
     </div>
   </div>
 </li>

@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{% static 'css/components/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}" />
     <link rel="stylesheet" href="{% static 'css/components/overlays.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     {% block extra_css %}
 
     {% endblock %}
@@ -73,6 +76,7 @@
       <script src="{% static 'js/posts/createPost.js' %}"></script>
       <script src="{% static 'js/posts/editPost.js' %}"></script>
       <script src="{% static 'js/posts/deletePost.js' %}"></script>
+      <script src="{% static 'js/posts/likePost.js' %}"></script>
     {% endif %}
     <script src="{% static 'js/profile.js' %}"></script>
     {% block extra_js %}

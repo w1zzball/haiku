@@ -116,3 +116,69 @@
   font-size: 2rem;
   font-weight: 300;
 }
+
+/* Styling for Likes */
+.post-footer {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
+.post-likes {
+  display: flex;
+  align-items: center;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #777;
+  font-size: 1.2rem;
+  padding: 5px;
+  transition: all 0.2s ease;
+  margin-right: 5px;
+}
+
+.like-button:hover {
+  transform: scale(1.1);
+}
+
+.like-button.liked {
+  color: #e74c3c;
+}
+
+.like-count {
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+.like-label {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* Animation for like button */
+@keyframes heart-beat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.like-button.liked {
+  animation: heart-beat 0.4s ease-in-out;
+}

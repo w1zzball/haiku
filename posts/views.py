@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .forms import PostForm
 from django.views.generic import ListView
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Like
 from profiles.models import Profile
-from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 import logging
 from django.contrib import messages
@@ -153,3 +152,47 @@ def delete_profile(request):
         # For non-AJAX requests
         messages.error(request, 'There was an error deleting your profile.')
         return redirect('profile', username=user.username)
+
+
+@login_required
+def like_post(request, post_id):
+    """Add a like to a post"""
+    post = get_object_or_404(Post, id=post_id)
+    user_profile = request.user.profile
+
+    # Check if already liked
+    if not post.is_liked_by(user_profile):
+        # Create the like
+        Like.objects.create(user=user_profile, post=post)
+
+    # Return JSON response for AJAX requests
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'success': True,
+            'likes_count': post.likes_count,
+            'is_liked': True
+        })
+
+    # For regular requests, redirect back
+    return redirect('post-detail', post_id=post_id)
+
+
+@login_required
+def unlike_post(request, post_id):
+    """Remove a like from a post"""
+    post = get_object_or_404(Post, id=post_id)
+    user_profile = request.user.profile
+
+    # Delete the like
+    Like.objects.filter(user=user_profile, post=post).delete()
+
+    # Return JSON response for AJAX requests
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'success': True,
+            'likes_count': post.likes_count,
+            'is_liked': False
+        })
+
+    # For regular requests, redirect back
+    return redirect('post-detail', post_id=post_id)

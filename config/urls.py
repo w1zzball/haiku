@@ -21,7 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # /user/<uname>/ URL configuration
     # /user/<uname>/posts/ URL configuration
-    path('user/', include('posts.urls')),
+    path('posts/', include('posts.urls')),
+
     path('user/', include('profiles.urls')),
 
     # allauth URLs
