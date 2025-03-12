@@ -14,7 +14,7 @@
     <p class="post-body">{{ post.body }}</p>
 
     <div class="post-meta">
-      <small>Posted on {{ post.created_at|date:'F j, Y' }}</small>
+      <small>Posted on {{ post.created_at|date:'F j, Y, g:i a' }}</small>
       {% if user.is_authenticated and user.profile == post.author %}
         <span class="post-actions">
           <button class="btn btn-sm edit-post-btn" data-post-id="{{ post.id }}">Edit</button>
