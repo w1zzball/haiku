@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 
@@ -30,6 +31,10 @@ class Post(models.Model):
     def is_liked_by(self, user_profile):
         """Check if a post is liked by a specific user profile"""
         return self.likes_set.filter(user=user_profile).exists()
+
+    def get_absolute_url(self):
+        """Return the URL for this post"""
+        return reverse('post-detail', kwargs={'post_id': self.id})
 
 
 class Like(models.Model):

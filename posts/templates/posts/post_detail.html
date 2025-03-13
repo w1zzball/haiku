@@ -1,0 +1,97 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% load post_filters %}
+{% comment %}SEO stuff{% endcomment %}
+{% block extra_head %}
+  <!-- OpenGraph tags for social sharing -->
+  <meta property="og:title" content="Haiku by {{ post.author }}" />
+  <meta property="og:description" content="{{ post.body|truncatechars:150 }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  {% if post.author.profile_pic %}
+    <meta property="og:image" content="{{ post.author.profile_pic.url }}" />
+  {% endif %}
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Haiku by {{ post.author }}" />
+  <meta name="twitter:description" content="{{ post.body|truncatechars:150 }}" />
+{% endblock %}
+
+{% block title %}
+  {{ page_title }}
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
+  <style>
+    .single-post-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .post-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .back-link {
+      margin-top: 20px;
+      display: block;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="single-post-container">
+      <h1 class="page-title">Haiku</h1>
+
+      <div class="post-item" data-post-id="{{ post.id }}">
+        <div class="post-content">
+          <div class="post-header">
+            <div class="post-author">
+              <img src="{{ post.author.profile_pic.url|default:'/static/images/profile_pictures/default1.bmp' }}" alt="{{ post.author }}'s profile" class="profile-thumbnail" />
+              <a href="{% url 'user-posts' username=post.author.user.username %}">{{ post.author }}</a>
+            </div>
+          </div>
+
+          <p class="post-body">{{ post.body }}</p>
+
+          <div class="post-meta">
+            <small>Posted on {{ post.created_at|date:'F j, Y' }}</small>
+            {% if user.is_authenticated and user.profile == post.author %}
+              <span class="post-actions">
+                <button class="btn btn-sm edit-post-btn" data-post-id="{{ post.id }}">Edit</button>
+                <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="{{ post.id }}">Delete</button>
+              </span>
+            {% endif %}
+          </div>
+
+          <!-- Like functionality section -->
+          <div class="post-footer">
+            <div class="post-likes">
+              {% if user.is_authenticated %}
+                {% if post|is_liked_by:user.profile %}
+                  <button class="like-button liked" data-post-id="{{ post.id }}" aria-label="Unlike this post"><i class="fas fa-heart"></i></button>
+                {% else %}
+                  <button class="like-button" data-post-id="{{ post.id }}" aria-label="Like this post"><i class="far fa-heart"></i></button>
+                {% endif %}
+              {% endif %}
+              <span class="like-count" data-post-id="{{ post.id }}">{{ post.likes_count }}</span>
+              <span class="like-label">likes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="javascript:history.back()" class="back-link">← Back</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- If you need any page-specific JavaScript -->
+{% endblock %}
