@@ -83,6 +83,21 @@ document.addEventListener('DOMContentLoaded', function () {
             activeEditForm = null
             activePostContent = null
             activeOriginalContent = null
+            // Reinitialize clickable text
+            const clickableTexts = document.querySelectorAll('.selectable-clickable');
+            clickableTexts.forEach(function (element) {
+                element.addEventListener('click', function (e) {
+                    // Check if text is being selected
+                    const selection = window.getSelection();
+                    if (selection.toString().length === 0) {
+                        // No text is selected, navigate to the URL
+                        const url = this.dataset.href;
+                        if (url) {
+                            window.location.href = url;
+                        }
+                    }
+                });
+            });
         }
     })
 })
