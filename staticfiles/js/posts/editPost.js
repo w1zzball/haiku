@@ -1,10 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
+    let activeEditForm = null;
+    let activePostContent = null;
+    let activeOriginalContent = null;
+
     document.body.addEventListener('click', function (e) {
         if (e.target.classList.contains('edit-post-btn')) {
             const postId = e.target.dataset.postId
             const postItem = document.querySelector(`li.post-item[data-post-id="${postId}"]`)
             const postContent = postItem.querySelector('.post-content')
             const originalContent = postContent.innerHTML
+
+            // Close any existing edit form first
+            if (activeEditForm && activePostContent) {
+                activePostContent.innerHTML = activeOriginalContent;
+            }
 
             fetch(`/posts/edit/${postId}/`, {
                 method: 'GET'
@@ -17,6 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                     postContent.innerHTML = data.form
+
+                    // Store active edit form references
+                    activeEditForm = postContent.querySelector('.post-form')
+                    activePostContent = postContent
+                    activeOriginalContent = originalContent
 
                     const editForm = postContent.querySelector('.post-form')
                     const cancelBtn = editForm.querySelector('#cancel-post')
@@ -59,6 +73,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch((error) => {
                     console.error('Error fetching edit form:', error)
                 })
+        }
+    })
+
+    // Handle clicks outside edit form
+    document.addEventListener('click', function (e) {
+        if (activeEditForm && activePostContent && !activeEditForm.contains(e.target) && !e.target.classList.contains('edit-post-btn')) {
+            activePostContent.innerHTML = activeOriginalContent
+            activeEditForm = null
+            activePostContent = null
+            activeOriginalContent = null
         }
     })
 })
