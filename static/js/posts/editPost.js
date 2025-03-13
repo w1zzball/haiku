@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 postContent.innerHTML = originalContent
                             })
                     })
+
+                    // Initialize counter after form is loaded
+                    initializeSyllableCounter()
                 })
                 .catch((error) => {
                     console.error('Error fetching edit form:', error)

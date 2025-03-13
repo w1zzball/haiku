@@ -3,7 +3,7 @@
   <form method="post" class="post-form" id="new-post-form">
     {% csrf_token %}
     {{ form.as_p }}
-    {% comment %} <div class="syllable-counter">Syllables: 0/17</div> {% endcomment %}
+    <div class="syllable-counter">Syllables: 0/17</div>
     <div class="form-actions">
       <button type="button" class="btn btn-cancel" id="cancel-post">Cancel</button>
       <button type="submit" class="btn btn-primary">Save</button>

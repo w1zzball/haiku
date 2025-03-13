@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 formContainer.innerHTML = data.form
                 overlay.style.display = 'flex'
 
+                // Initialize syllable counter
+                initializeSyllableCounter();
+
                 const postForm = formContainer.querySelector('.post-form')
                 postForm.addEventListener('submit', function (e) {
                     e.preventDefault()
