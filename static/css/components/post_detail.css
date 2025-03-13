@@ -1,0 +1,17 @@
+/* css for full page view */
+.single-post-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.post-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.back-link {
+  margin-top: 20px;
+  display: block;
+}

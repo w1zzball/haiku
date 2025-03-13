@@ -24,24 +24,7 @@
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
-  <style>
-    .single-post-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    
-    .post-actions {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
-    
-    .back-link {
-      margin-top: 20px;
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/components/post_detail.css' %}" />
 {% endblock %}
 
 {% block content %}
