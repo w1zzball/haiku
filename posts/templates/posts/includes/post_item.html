@@ -11,8 +11,8 @@
       {% endif %}
     </div>
 
-    <!-- Make the post body clickable -->
-    <a href="{% url 'post-detail' post_id=post.id %}" class="post-body-link"><p class="post-body">{{ post.body }}</p></a>
+    <!-- Selectable and clickable post body -->
+    <p class="post-body selectable-clickable" data-href="{% url 'post-detail' post_id=post.id %}">{{ post.body }}</p>
 
     <div class="post-meta">
       <small>Posted on {{ post.created_at|date:'F j, Y' }} at {{ post.created_at|date:'g:i A' }}</small>
