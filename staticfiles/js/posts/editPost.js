@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.addEventListener('click', function (e) {
         if (e.target.classList.contains('edit-post-btn')) {
             const postId = e.target.dataset.postId
-            const postItem = document.querySelector(`li.post-item[data-post-id="${postId}"]`)
+            // Update selector to work with both list and detail views
+            const postItem = document.querySelector(`li.post-item[data-post-id="${postId}"], .post-item.single-view[data-post-id="${postId}"]`)
             const postContent = postItem.querySelector('.post-content')
             const originalContent = postContent.innerHTML
 
