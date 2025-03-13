@@ -11,10 +11,12 @@
       {% endif %}
     </div>
 
-    <p class="post-body">{{ post.body }}</p>
+    <!-- Make the post body clickable -->
+    <a href="{% url 'post-detail' post_id=post.id %}" class="post-body-link"><p class="post-body">{{ post.body }}</p></a>
 
     <div class="post-meta">
-      <small>Posted on {{ post.created_at|date:'F j, Y' }}</small>
+      <small>Posted on {{ post.created_at|date:'F j, Y' }} at {{ post.created_at|date:'g:i A' }}</small>
+
       {% if user.is_authenticated and user.profile == post.author %}
         <span class="post-actions">
           <button class="btn btn-sm edit-post-btn" data-post-id="{{ post.id }}">Edit</button>
@@ -23,7 +25,7 @@
       {% endif %}
     </div>
 
-    <!-- Fix the like functionality section -->
+    <!-- Like functionality section -->
     <div class="post-footer">
       <div class="post-likes">
         {% if user.is_authenticated %}

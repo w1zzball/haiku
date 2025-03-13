@@ -15,3 +15,11 @@
   margin-top: 20px;
   display: block;
 }
+
+/* profile picture settings */
+img.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}

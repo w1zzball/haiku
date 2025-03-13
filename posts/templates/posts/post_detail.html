@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block title %}
-  {{ page_title }}
+  Post by {{ post.author.user.username }}
 {% endblock %}
 
 {% block extra_css %}
@@ -30,14 +30,18 @@
 {% block content %}
   <div class="container">
     <div class="single-post-container">
-      <h1 class="page-title">Haiku</h1>
+      <h1 class="page-title">Post</h1>
 
-      <div class="post-item" data-post-id="{{ post.id }}">
+      <div class="post-item single-view" data-post-id="{{ post.id }}">
         <div class="post-content">
           <div class="post-header">
             <div class="post-author">
-              <img src="{{ post.author.profile_pic.url|default:'/static/images/profile_pictures/default1.bmp' }}" alt="{{ post.author }}'s profile" class="profile-thumbnail" />
-              <a href="{% url 'user-posts' username=post.author.user.username %}">{{ post.author }}</a>
+              {% if post.author.profile_pic %}
+                <img src="{{ post.author.profile_pic.url }}" alt="{{ post.author.user.username }}'s profile" class="profile-pic" />
+              {% else %}
+                <img src="{% static 'images/default-avatar.png' %}" alt="Default profile" class="profile-pic" />
+              {% endif %}
+              <a href="{% url 'user-posts' username=post.author.user.username %}">{{ post.author.user.username }}</a>
             </div>
           </div>
 
@@ -70,11 +74,13 @@
         </div>
       </div>
 
-      <a href="javascript:history.back()" class="back-link">← Back</a>
+      <a href="javascript:history.back()" class="back-link">« Back</a>
     </div>
   </div>
 {% endblock %}
 
 {% block extra_js %}
-  <!-- If you need any page-specific JavaScript -->
+  <script>
+    // If you need any page-specific JavaScript
+  </script>
 {% endblock %}

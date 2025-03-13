@@ -192,3 +192,26 @@
 .post-link:hover .post-body {
   color: #555;
 }
+
+/* Add styling for the clickable post area */
+.post-body-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.post-body-link:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.post-body-link:hover .post-body {
+  color: #333;
+}
+
+/* Make sure the post body text stays properly styled */
+.post-body-link .post-body {
+  margin: 0;
+  padding: 10px 0;
+}

@@ -202,16 +202,18 @@ def post_detail(request, post_id):
     """Display a single post"""
     post = get_object_or_404(Post, id=post_id)
 
-    # Check if the current user has liked the post
-    is_liked = False
+    # Check if the current user has liked this post
+    liked_post_ids = []
     if request.user.is_authenticated:
-        is_liked = Like.objects.filter(
-            user=request.user.profile, post=post).exists()
+        liked_post_ids = Like.objects.filter(
+            user=request.user.profile,
+            post=post
+        ).values_list('post_id', flat=True)
 
     context = {
         'post': post,
-        'is_liked': is_liked,
-        'page_title': f"Haiku by {post.author}"
+        'liked_post_ids': liked_post_ids,
+        'page_title': f'Post by {post.author.user.username}'
     }
 
     return render(request, 'posts/post_detail.html', context)
