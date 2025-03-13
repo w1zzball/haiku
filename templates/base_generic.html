@@ -30,9 +30,6 @@
       </button>
       <nav>
         <ul class="nav-left">
-          <li>
-            <a href="{% url 'home' %}">Home</a>
-          </li>
           {% if user.is_authenticated %}
             <li>
               <a href="{% url 'profile' username=user.username %}">My Profile</a>
