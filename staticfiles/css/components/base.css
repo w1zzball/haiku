@@ -36,11 +36,29 @@ header h1 a {
   text-decoration: none;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
 nav ul {
   display: flex;
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.nav-left {
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.nav-right {
+  justify-content: flex-end;
+  flex: 1;
 }
 
 nav ul li {
@@ -74,8 +92,36 @@ nav li a:hover {
   transition: all 0.3s ease;
 }
 
-/* Mobile nav styles */
-@media screen and (max-width: 576px) {
+/* Remove .nav-center styles */
+
+/* Add floating button styles */
+.floating-button {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 1001;
+}
+
+.floating-button:hover {
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+/* Tablet nav styles */
+@media screen and (max-width: 768px) {
   .nav-toggle {
     display: block;
   }
@@ -87,20 +133,34 @@ nav li a:hover {
     right: 0;
     background: #f9f9f9;
     display: none;
+    padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   nav.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
-  nav ul {
+  /* Remove nav-center mobile styles */
+
+  /* Stack left and right sections vertically */
+  .nav-left,
+  .nav-right {
     flex-direction: column;
-    padding: 20px;
+    width: 100%;
   }
 
   nav ul li {
     margin: 10px 0;
     margin-left: 0;
+    text-align: center;
+  }
+}
+
+/* Update mobile styles */
+@media screen and (max-width: 576px) {
+  .floating-button {
+    bottom: -25px; /* Slightly lower on mobile */
   }
 }

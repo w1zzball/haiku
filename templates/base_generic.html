@@ -29,7 +29,7 @@
         <span></span>
       </button>
       <nav>
-        <ul>
+        <ul class="nav-left">
           <li>
             <a href="{% url 'home' %}">Home</a>
           </li>
@@ -40,9 +40,10 @@
             <li>
               <a href="{% url 'user-posts' username=user.username %}">My Posts</a>
             </li>
-            <li>
-              <a href="#" id="new-post-button">New Post</a>
-            </li>
+          {% endif %}
+        </ul>
+        <ul class="nav-right">
+          {% if user.is_authenticated %}
             <li>
               <a href="{% url 'account_logout' %}">Logout</a>
             </li>
@@ -56,6 +57,9 @@
           {% endif %}
         </ul>
       </nav>
+      {% if user.is_authenticated %}
+        <button id="new-post-button" class="floating-button" aria-label="Create new post"><i class="fas fa-plus"></i></button>
+      {% endif %}
     </header>
     <main>
       {% block content %}
