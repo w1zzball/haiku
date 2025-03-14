@@ -82,9 +82,31 @@
 {% block extra_js %}
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Back button handler
+      // Back button handler with domain check
       document.querySelector('.back-btn').addEventListener('click', function () {
-        history.back()
+        const referrer = document.referrer
+    
+        // Get current domain (hostname)
+        const currentDomain = window.location.hostname
+    
+        // Check if the referrer is from the same site
+        let referrerDomain = ''
+        try {
+          // Create a URL object to extract the hostname
+          const referrerUrl = new URL(referrer)
+          referrerDomain = referrerUrl.hostname
+        } catch (e) {
+          // Invalid or empty referrer
+          referrerDomain = ''
+        }
+    
+        if (referrer && referrerDomain === currentDomain) {
+          // Referrer is from our site - navigate to it with reload
+          window.location.href = referrer
+        } else {
+          // No referrer or external referrer - go to home page
+          window.location.href = '/'
+        }
       })
     
       // Delete button handler
