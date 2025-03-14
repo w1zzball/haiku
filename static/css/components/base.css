@@ -120,6 +120,48 @@ nav li a:hover {
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 
+/* non floating button styles */
+.non-floating-button {
+  /* position: relative; */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 1001;
+}
+
+.non-floating-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+/* Post footer styles */
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-likes {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.post-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 5px;
+}
+
 /* Tablet nav styles */
 @media screen and (max-width: 768px) {
   .nav-toggle {
