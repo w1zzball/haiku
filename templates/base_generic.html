@@ -64,7 +64,7 @@
       {% endblock %}
     </main>
     <footer>
-      <p>&copy; 2025 My Site</p>
+      <p id="copywrite-para">&copy; 2025 Aaron Ibbotson</p>
     </footer>
     <!-- Overlay for creating a new post -->
     {% if user.is_authenticated %}
@@ -90,6 +90,8 @@
       document.querySelector('.nav-toggle').addEventListener('click', function () {
         document.querySelector('nav').classList.toggle('active')
       })
+      //update copywrite year
+      document.getElementById('copywrite-para').innerHTML = `&copy; ${new Date().getFullYear()} Aaron Ibbotson`
     </script>
     <script src="{% static 'js/posts/clickablePosts.js' %}"></script>
     {% block extra_js %}
