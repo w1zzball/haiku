@@ -100,8 +100,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const postContent = document.createElement('div')
         postContent.className = 'post-content'
 
+        // Create selectable and clickable post body
         const postBody = document.createElement('p')
-        postBody.className = 'post-body'
+        postBody.className = 'post-body selectable-clickable'
+        postBody.dataset.href = `/posts/${data.post_id}/`
         postBody.textContent = data.body
 
         const postMeta = document.createElement('div')
@@ -109,31 +111,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Format current date in a friendly way
         const now = new Date()
-        const options = { year: 'numeric', month: 'long', day: 'numeric' }
-        const dateFormatted = now.toLocaleDateString('en-US', options)
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+        const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
+        const dateFormatted = now.toLocaleDateString('en-US', dateOptions)
+        const timeFormatted = now.toLocaleTimeString('en-US', timeOptions)
 
-        const postActionsHtml = `
-            <span class="post-actions">
-                <button class="btn btn-sm edit-post-btn" data-post-id="${data.post_id}">Edit</button>
-                <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="${data.post_id}">Delete</button>
-            </span>
-        `
+        postMeta.innerHTML = `<small>Posted on ${dateFormatted} at ${timeFormatted}</small>`
 
-        postMeta.innerHTML = `<small>Posted on ${dateFormatted}</small> ${postActionsHtml}`
-
-        // Add like footer
+        // Create post footer
         const postFooter = document.createElement('div')
         postFooter.className = 'post-footer'
-        postFooter.innerHTML = `
-            <div class="post-likes">
-                <button class="like-button" data-post-id="${data.post_id}" aria-label="Like this post">
-                    <i class="far fa-heart"></i>
-                </button>
-                <span class="like-count" data-post-id="${data.post_id}">0</span>
-                <span class="like-label">likes</span>
-            </div>
+
+        // Add likes section
+        const postLikes = document.createElement('div')
+        postLikes.className = 'post-likes'
+        postLikes.innerHTML = `
+            <button class="like-button" data-post-id="${data.post_id}" aria-label="Like this post">
+                <i class="far fa-heart"></i>
+            </button>
+            <span class="like-count" data-post-id="${data.post_id}">0</span>
+            <span class="like-label">likes</span>
         `
 
+        // Add post actions (edit/delete buttons)
+        const postActions = document.createElement('span')
+        postActions.className = 'post-actions'
+        postActions.innerHTML = `
+            <button class="non-floating-button edit-post-btn" data-post-id="${data.post_id}">
+                <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="non-floating-button delete-post-btn" data-post-id="${data.post_id}">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        `
+
+        // Add both elements to the footer
+        postFooter.appendChild(postLikes)
+        postFooter.appendChild(postActions)
+
+        // Assemble the post
         postContent.appendChild(postBody)
         postContent.appendChild(postMeta)
         postContent.appendChild(postFooter)
