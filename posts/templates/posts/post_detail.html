@@ -23,8 +23,8 @@
 {% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/post_detail.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -49,12 +49,6 @@
 
           <div class="post-meta">
             <small>Posted on {{ post.created_at|date:'F j, Y' }}</small>
-            {% if user.is_authenticated and user.profile == post.author %}
-              <span class="post-actions">
-                <button class="btn btn-sm edit-post-btn" data-post-id="{{ post.id }}">Edit</button>
-                <button class="btn btn-sm btn-danger delete-post-btn" data-post-id="{{ post.id }}">Delete</button>
-              </span>
-            {% endif %}
           </div>
 
           <!-- Like functionality section -->
@@ -70,6 +64,12 @@
               <span class="like-count" data-post-id="{{ post.id }}">{{ post.likes_count }}</span>
               <span class="like-label">likes</span>
             </div>
+            {% if user.is_authenticated and user.profile == post.author %}
+              <span class="post-actions">
+                <button class="non-floating-button edit-post-btn" data-post-id="{{ post.id }}"><i class="fa-solid fa-pen"></i></button>
+                <button class="non-floating-button delete-post-btn" data-post-id="{{ post.id }}"><i class="fa-solid fa-xmark"></i></button>
+              </span>
+            {% endif %}
           </div>
         </div>
       </div>
