@@ -74,16 +74,20 @@
         </div>
       </div>
 
-      <a href="javascript:history.back()" class="back-link">« Back</a>
+      <button class="non-floating-button back-btn"><i class="fa-solid fa-angles-left"></i></button>
     </div>
   </div>
 {% endblock %}
 
 {% block extra_js %}
   <script>
-    // If you need any page-specific JavaScript
     document.addEventListener('DOMContentLoaded', function () {
-      // Find delete button on this page
+      // Back button handler
+      document.querySelector('.back-btn').addEventListener('click', function () {
+        history.back()
+      })
+    
+      // Delete button handler
       const deleteBtn = document.querySelector('.delete-post-btn')
     
       if (deleteBtn) {
