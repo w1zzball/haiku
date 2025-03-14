@@ -92,8 +92,13 @@ nav li a:hover {
   transition: all 0.3s ease;
 }
 
-/* Remove .nav-center styles */
-
+/* fontawesome icon styling*/
+button i.fas,
+button i.far,
+button i.fa-solid,
+button i.fa-regular {
+  pointer-events: none; /* Disable hover effect */
+}
 /* Add floating button styles */
 .floating-button {
   position: absolute;
