@@ -1,104 +1,206 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let activeEditForm = null;
-    let activePostContent = null;
-    let activeOriginalContent = null;
+    // State tracking variables
+    let activeEditState = {
+        form: null,
+        postContent: null,
+        originalHTML: null,
+        postId: null,
+        isEdited: false
+    };
 
+    // Event delegation for edit buttons
     document.body.addEventListener('click', function (e) {
-        if (e.target.classList.contains('edit-post-btn')) {
-            const postId = e.target.dataset.postId
-            // Update selector to work with both list and detail views
-            const postItem = document.querySelector(`li.post-item[data-post-id="${postId}"], .post-item.single-view[data-post-id="${postId}"]`)
-            const postContent = postItem.querySelector('.post-content')
-            const originalContent = postContent.innerHTML
-
-            // Close any existing edit form first
-            if (activeEditForm && activePostContent) {
-                activePostContent.innerHTML = activeOriginalContent;
-            }
-
-            fetch(`/posts/edit/${postId}/`, {
-                method: 'GET'
-            })
-                .then(response => response.json())
-                .then((data) => {
-                    if (!data.form) {
-                        console.error('No form data received')
-                        return
-                    }
-
-                    postContent.innerHTML = data.form
-
-                    // Store active edit form references
-                    activeEditForm = postContent.querySelector('.post-form')
-                    activePostContent = postContent
-                    activeOriginalContent = originalContent
-
-                    const editForm = postContent.querySelector('.post-form')
-                    const cancelBtn = editForm.querySelector('#cancel-post')
-
-                    cancelBtn.addEventListener('click', function () {
-                        postContent.innerHTML = originalContent
-                    })
-
-                    // Handle form submission
-                    editForm.addEventListener('submit', function (e) {
-                        e.preventDefault()
-                        const formData = new FormData(editForm)
-
-                        fetch(`/posts/edit/${postId}/`, {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => response.json())
-                            .then((data) => {
-                                if (data.success && data.body) {
-                                    postContent.innerHTML = originalContent
-                                    const bodyElement = postItem.querySelector('.post-body')
-                                    if (bodyElement) {
-                                        bodyElement.textContent = data.body
-                                    }
-                                } else if (data.errors) {
-                                    const errorMessages = Object.values(data.errors).flat()
-                                    alert('Error: ' + errorMessages.join('\n'))
-                                }
-                            })
-                            .catch((error) => {
-                                console.error('Error updating post:', error)
-                                postContent.innerHTML = originalContent
-                            })
-                    })
-
-                    // Initialize counter after form is loaded
-                    initializeSyllableCounter()
-                })
-                .catch((error) => {
-                    console.error('Error fetching edit form:', error)
-                })
+        // Handle edit button clicks
+        if (e.target.closest('.edit-post-btn')) {
+            const button = e.target.closest('.edit-post-btn');
+            const postId = button.dataset.postId;
+            handleEditButtonClick(postId);
         }
-    })
 
-    // Handle clicks outside edit form
-    document.addEventListener('click', function (e) {
-        if (activeEditForm && activePostContent && !activeEditForm.contains(e.target) && !e.target.classList.contains('edit-post-btn')) {
-            activePostContent.innerHTML = activeOriginalContent
-            activeEditForm = null
-            activePostContent = null
-            activeOriginalContent = null
-            // Reinitialize clickable text
-            const clickableTexts = document.querySelectorAll('.selectable-clickable');
-            clickableTexts.forEach(function (element) {
-                element.addEventListener('click', function (e) {
-                    // Check if text is being selected
-                    const selection = window.getSelection();
-                    if (selection.toString().length === 0) {
-                        // No text is selected, navigate to the URL
-                        const url = this.dataset.href;
-                        if (url) {
-                            window.location.href = url;
-                        }
-                    }
-                });
+        // Handle clicks outside the active edit form
+        else if (activeEditState.form && !e.target.closest('.post-form')) {
+            handleOutsideClick();
+        }
+    });
+
+    function handleEditButtonClick(postId) {
+        // Cancel any active edit first
+        if (activeEditState.form) {
+            cancelEdit();
+        }
+
+        // Find the post item
+        const postItem = document.querySelector(`.post-item[data-post-id="${postId}"], .single-view[data-post-id="${postId}"]`);
+        if (!postItem) return;
+
+        const postContent = postItem.querySelector('.post-content');
+        if (!postContent) return;
+
+        // Save original state
+        activeEditState = {
+            form: null,
+            postContent: postContent,
+            originalHTML: postContent.innerHTML,
+            postId: postId,
+            isEdited: false
+        };
+
+        // Fetch the edit form
+        fetch(`/posts/edit/${postId}/`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data.form) {
+                    throw new Error('No form data received');
+                }
+
+                // Insert the form
+                postContent.innerHTML = data.form;
+
+                // Update our state
+                activeEditState.form = postContent.querySelector('.post-form');
+
+                // Set up event handlers
+                setupFormEventHandlers();
+
+                // Initialize any additional components
+                if (typeof initializeSyllableCounter === 'function') {
+                    initializeSyllableCounter();
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching edit form:', error);
+                cancelEdit();
+            });
+    }
+
+    function setupFormEventHandlers() {
+        if (!activeEditState.form) return;
+
+        // Cancel button handler
+        const cancelBtn = activeEditState.form.querySelector('#cancel-post');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                cancelEdit();
             });
         }
-    })
-})
+
+        // Form submission handler
+        activeEditState.form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(activeEditState.form);
+            const postId = activeEditState.postId;
+
+            fetch(`/posts/edit/${postId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCsrfToken()
+                },
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success && data.body) {
+                        // Mark as successfully edited
+                        activeEditState.isEdited = true;
+
+                        // Restore the HTML structure
+                        activeEditState.postContent.innerHTML = activeEditState.originalHTML;
+
+                        // Find and update all post body elements
+                        const bodyElements = activeEditState.postContent.querySelectorAll('.post-body');
+                        bodyElements.forEach(bodyElement => {
+                            bodyElement.textContent = data.body;
+                        });
+
+                        // Ensure link functionality is preserved
+                        const postBodyLinks = activeEditState.postContent.querySelectorAll('a.post-link');
+                        if (postBodyLinks.length === 0) {
+                            // If no links exist in the restore HTML, we need to add links to the post body
+                            const postBody = activeEditState.postContent.querySelector('.post-body');
+                            if (postBody && !postBody.closest('a')) {
+                                // Wrap post body in a link if it's not already wrapped
+                                const postLink = document.createElement('a');
+                                postLink.href = `/posts/${activeEditState.postId}/`;
+                                postLink.className = 'post-link';
+
+                                // Preserve the post body's parent
+                                const parent = postBody.parentNode;
+
+                                // Replace post body with link containing post body
+                                parent.removeChild(postBody);
+                                postLink.appendChild(postBody);
+
+                                // Add link to original location
+                                if (parent.firstChild) {
+                                    parent.insertBefore(postLink, parent.firstChild);
+                                } else {
+                                    parent.appendChild(postLink);
+                                }
+                            }
+                        }
+
+                        // Reset edit state
+                        activeEditState = {
+                            form: null,
+                            postContent: null,
+                            originalHTML: null,
+                            postId: null,
+                            isEdited: false
+                        };
+                    }
+                    else if (data.errors) {
+                        const errorMessages = Object.values(data.errors).flat();
+                        alert('Error: ' + errorMessages.join('\n'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating post:', error);
+                    cancelEdit();
+                });
+        });
+    }
+
+    function cancelEdit() {
+        if (activeEditState.postContent) {
+            activeEditState.postContent.innerHTML = activeEditState.originalHTML;
+        }
+
+        // Reset state
+        activeEditState = {
+            form: null,
+            postContent: null,
+            originalHTML: null,
+            postId: null,
+            isEdited: false
+        };
+    }
+
+    function handleOutsideClick() {
+        // Don't cancel if we've successfully edited (handled by the edit success flow)
+        if (!activeEditState.isEdited) {
+            cancelEdit();
+        }
+    }
+
+    function getCsrfToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]')?.value || '';
+    }
+});
