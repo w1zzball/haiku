@@ -111,7 +111,6 @@ function countTotalSyllables(text) {
 function initializeSyllableCounter() {
     const textarea = document.querySelector('textarea[name="body"]');
     const counter = document.querySelector('.syllable-counter');
-    console.log('Initializing syllable counter');
 
     if (textarea && counter) {
         textarea.addEventListener('input', () => {

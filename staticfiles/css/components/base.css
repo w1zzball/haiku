@@ -99,6 +99,16 @@ button i.fa-solid,
 button i.fa-regular {
   pointer-events: none; /* Disable hover effect */
 }
+/*dynamically generated post styles*/
+.post-body {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.post-link:hover .post-body {
+  color: #555;
+}
 /* Add floating button styles */
 .floating-button {
   position: absolute;
