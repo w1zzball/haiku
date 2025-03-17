@@ -43,9 +43,9 @@
 }
 
 .post-author a {
-  color: #2c3e50;
+  color: #2c6b7c;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .post-body {
@@ -53,7 +53,7 @@
   line-height: 1.6;
   margin: 15px 0;
   white-space: pre-line;
-  color: #34495e;
+  color: #1a2832;
 }
 
 .post-meta {
@@ -62,7 +62,7 @@
   align-items: center;
   padding-top: 15px;
   border-top: 1px solid #eee;
-  color: #95a5a6;
+  color: #505d66;
   font-size: 0.9rem;
 }
 
@@ -111,7 +111,7 @@
 /* Page title styling */
 .page-title {
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
   margin: 2rem 0;
   font-size: 2rem;
   font-weight: 300;
@@ -135,7 +135,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #777;
+  color: #505d66;
   font-size: 1.2rem;
   padding: 5px;
   transition: all 0.2s ease;
@@ -147,16 +147,17 @@
 }
 
 .like-button.liked {
-  color: #e74c3c;
+  color: #dc2626;
 }
 
 .like-count {
+  color: #1a2832;
   font-weight: bold;
   margin: 0 5px;
 }
 
 .like-label {
-  color: #777;
+  color: #505d66;
   font-size: 0.9rem;
 }
 
