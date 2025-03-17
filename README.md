@@ -10,28 +10,41 @@ description of site
 
 ## Table of Contents
 
-- [UX/UI](#uxui)
-  - [Target Audience](#target-audience)
-  - [User Stories](#user-stories)
-  - [Design](#design)
-  - [Wireframes](#wireframes)
-- [Database Structure](#database-structure)
-  - [ERD](#erd)
-- [Features](#features)
-  - [Implemented Features](#implemented-features)
-  - [Future Additions](#future-additions)
-- [Agile Methodologies](#agile-methodologies)
-  - [Kanban Board](#kanban-board)
-- [Deployment](#deployment)
-- [Testing](#testing)
-  - [HTML](#html)
-  - [CSS](#css)
-  - [JS](#javascript)
-  - [Python / Unit tests](#python--unit-tests)
-  - [Lighthouse](#lighthouse)
-  - [Manual Testing](#manual-testing)
-- [Technologies Used](#technologies-used)
-- [Credits](#credits)
+- [Haiku Microblog](#haiku-microblog)
+  - [Table of Contents](#table-of-contents)
+  - [UX/UI](#uxui)
+      - [Target Audience](#target-audience)
+      - [User Stories](#user-stories)
+      - [Design](#design)
+      - [Wireframes](#wireframes)
+        - [Mobile](#mobile)
+        - [Tablet](#tablet)
+        - [PC](#pc)
+  - [Database Structure](#database-structure)
+      - [Essential Schema](#essential-schema)
+        - [Profile](#profile)
+        - [Post](#post)
+        - [Likes](#likes)
+      - [ERD](#erd)
+  - [Features](#features)
+      - [Implemented Features](#implemented-features)
+      - [Future Additions](#future-additions)
+  - [Agile Methodologies](#agile-methodologies)
+      - [Acceptance Criteria/User Stories](#acceptance-criteriauser-stories)
+      - [Kanban Board](#kanban-board)
+  - [Deployment](#deployment)
+  - [Testing](#testing)
+      - [HTML](#html)
+      - [CSS](#css)
+      - [JavaScript](#javascript)
+      - [Python / Unit tests](#python--unit-tests)
+      - [Lighthouse](#lighthouse)
+      - [Manual Testing](#manual-testing)
+  - [Manual Testing](#manual-testing-1)
+  - [Manual Testing](#manual-testing-2)
+  - [| Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately |](#-mobile--responsive-design--view-site-on-multiple-screen-sizes--layout-adapts-appropriately-)
+  - [Technologies Used](#technologies-used)
+  - [Credits](#credits)
 
 ---
 
@@ -117,7 +130,22 @@ The post model holds the users posts. It is linked to the posters profile and wi
 | author     | models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name='posts') | link to profile who created the post |
 | likes      | models.PositiveIntegerField(default=0)                                                | number of likes on the post          |
 
+##### Likes
+
+The Likes model saves when a user likes a post
+
+| Field | Value | Explanation |
+|-------|--------|-------------|
+| user | ForeignKey('profiles.Profile') | References the Profile model that created the like. Uses CASCADE deletion to remove likes when a user is deleted. |
+| post | ForeignKey('Post') | References the Post being liked. Uses CASCADE deletion to remove likes when a post is deleted. Has a related_name of 'likes_set' for reverse lookups. |
+| created_at | DateTimeField | Automatically set when the like is created (auto_now_add=True). Records when the like was made. |
+| Meta class | unique_together = ('user', 'post') | Ensures a user can only like a post once by preventing duplicate combinations of user and post. |
+
+
+
 #### ERD
+
+![Database Entity Relationship Diagram](./docs/images/ERD/haiku_ERD.webp)
 
 ---
 
@@ -131,18 +159,25 @@ The post model holds the users posts. It is linked to the posters profile and wi
   - Profile picture upload and management via Cloudinary
   - Profile deletion capability
   - Public profile viewing
+
 - Post Management
   - Create, edit and delete posts
   - AJAX-powered posting for seamless user experience
   - Haiku validation system ensuring proper syllable structure (5-7-5)
   - Homepage feed showing all users' posts
   - Input sanitization and cleaning
+  - Dynamic syllable counting to give feedback when entering text
+
+- Like system
+  - Users can like/unlike posts with a single click
+  - Like status visually indicated with filled/outlined heart icon
+  - Real-time like count updates without page refresh
+  - Optimistic UI updates (shows changes immediately before server confirmation)
 
 #### Future Additions
 
 - Social Features
   - Follow/unfollow other users
-  - Like/unlike posts
   - Comment system on posts
   - Private messaging between users
   - Share posts functionality
@@ -155,7 +190,6 @@ The post model holds the users posts. It is linked to the posters profile and wi
   - Categorize haikus by themes/topics
   - Search functionality for posts and users
   - Trending haikus section
-  - Featured poets/posts section
   - Seasonal themes and prompts
 - Educational Components
   - Tutorial section for haiku writing
@@ -166,7 +200,11 @@ The post model holds the users posts. It is linked to the posters profile and wi
 
 ## Agile Methodologies
 
+#### Acceptance Criteria/User Stories
+After the initial ideation I wrote a few possible user stories and using microsoft copilot I refined these rough sketches into actionable task lists, with acceptance criteria and what tasks needed to be done to meet them. These were then added to a Kanban Board.
+
 #### Kanban Board
+To help streamline design and pinpoint key features I employed a Kanban Board to track my progress and used the MoSCoW prioritisation method to sort tasks by how essential they were to the minimum viable product. This was impemented using githubs built in project boards, using custom labels to sort which items were must have/should have/could haves. 
 
 ---
 
