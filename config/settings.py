@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
 if os.path.exists('env.py'):
     import env  # noqa: F401 - imports env variables
 
@@ -162,6 +163,12 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_COOKIE_SAMESITE = 'Lax'  # Use 'None' with CSRF_COOKIE_SECURE=True if needed
 # Use 'None' with SESSION_COOKIE_SECURE=True if needed
 SESSION_COOKIE_SAMESITE = 'Lax'
+
+# Cloudinary configuration
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+cloudinary.config(
+    secure=True  # Use HTTPS
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
