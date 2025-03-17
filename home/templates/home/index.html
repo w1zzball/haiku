@@ -1,6 +1,10 @@
 {% extends 'base_generic.html' %}
 {% load static %}
 
+{% block meta_description %}
+  Haiku Microblog - A minimalist platform for sharing and discovering haikus. Write, read, and interact with poems in the traditional 5-7-5 syllable format.
+{% endblock %}
+
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
 {% endblock %}

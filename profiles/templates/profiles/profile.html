@@ -1,6 +1,10 @@
 {% extends 'base_generic.html' %}
 {% load static %}
 
+{% block meta_description %}
+  View {{ profile.user.username }}'s haiku collection and profile on Haiku Microblog. Discover original haikus in the traditional 5-7-5 syllable pattern.
+{% endblock %}
+
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/components/profiles.css' %}" />
   <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
