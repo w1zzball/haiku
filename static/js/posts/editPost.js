@@ -121,38 +121,51 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Mark as successfully edited
                         activeEditState.isEdited = true;
 
-                        // Restore the HTML structure
-                        activeEditState.postContent.innerHTML = activeEditState.originalHTML;
+                        // Check if this is a detail view or list view
+                        const isSingleView = activeEditState.postContent.closest('.single-view') !== null;
 
-                        // Find and update all post body elements
-                        const bodyElements = activeEditState.postContent.querySelectorAll('.post-body');
-                        bodyElements.forEach(bodyElement => {
-                            bodyElement.textContent = data.body;
-                        });
+                        // Handle differently based on view type
+                        if (isSingleView) {
+                            // For single post view (detail page), restore original structure first
+                            activeEditState.postContent.innerHTML = activeEditState.originalHTML;
 
-                        // Ensure link functionality is preserved
-                        const postBodyLinks = activeEditState.postContent.querySelectorAll('a.post-link');
-                        if (postBodyLinks.length === 0) {
-                            // If no links exist in the restore HTML, we need to add links to the post body
+                            // Find the post body within the correct structure
                             const postBody = activeEditState.postContent.querySelector('.post-body');
-                            if (postBody && !postBody.closest('a')) {
-                                // Wrap post body in a link if it's not already wrapped
-                                const postLink = document.createElement('a');
-                                postLink.href = `/posts/${activeEditState.postId}/`;
-                                postLink.className = 'post-link';
+                            if (postBody) {
+                                // Just update the text content of the existing body
+                                postBody.textContent = data.body;
+                            }
+                        } else {
+                            // For list view, restore original structure
+                            activeEditState.postContent.innerHTML = activeEditState.originalHTML;
 
-                                // Preserve the post body's parent
-                                const parent = postBody.parentNode;
+                            // Update post body and ensure link exists
+                            const postBody = activeEditState.postContent.querySelector('.post-body');
+                            if (postBody) {
+                                // Update the text
+                                postBody.textContent = data.body;
 
-                                // Replace post body with link containing post body
-                                parent.removeChild(postBody);
-                                postLink.appendChild(postBody);
+                                // If post body is not inside a link, wrap it
+                                if (!postBody.closest('a.post-link')) {
+                                    // Create a link
+                                    const postLink = document.createElement('a');
+                                    postLink.href = `/posts/${activeEditState.postId}/`;
+                                    postLink.className = 'post-link';
 
-                                // Add link to original location
-                                if (parent.firstChild) {
-                                    parent.insertBefore(postLink, parent.firstChild);
-                                } else {
-                                    parent.appendChild(postLink);
+                                    // Get the post body's parent
+                                    const parent = postBody.parentNode;
+
+                                    // Replace the post body with the link containing it
+                                    const postBodyClone = postBody.cloneNode(true);
+                                    parent.removeChild(postBody);
+                                    postLink.appendChild(postBodyClone);
+
+                                    // Add link at beginning of content
+                                    if (parent.firstChild) {
+                                        parent.insertBefore(postLink, parent.firstChild);
+                                    } else {
+                                        parent.appendChild(postLink);
+                                    }
                                 }
                             }
                         }
