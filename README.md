@@ -39,9 +39,7 @@ description of site
       - [JavaScript](#javascript)
       - [Python / Unit tests](#python--unit-tests)
       - [Lighthouse](#lighthouse)
-      - [Manual Testing](#manual-testing)
-  - [Manual Testing](#manual-testing-1)
-  - [Manual Testing](#manual-testing-2)
+  - [Manual Testing](#manual-testing)
   - [| Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately |](#-mobile--responsive-design--view-site-on-multiple-screen-sizes--layout-adapts-appropriately-)
   - [Technologies Used](#technologies-used)
   - [Credits](#credits)
@@ -218,7 +216,11 @@ To help streamline design and pinpoint key features I employed a Kanban Board to
 
 #### HTML
 
+Running the home, account and post pages generated from my templates through the WC3 HTML validator returns no errors.
+
 #### CSS
+
+W3C CSS validator returns no errors on any of the static css components.
 
 #### JavaScript
 
@@ -226,17 +228,19 @@ To help streamline design and pinpoint key features I employed a Kanban Board to
 
 #### Lighthouse
 
-#### Manual Testing
+- The homepage recieves a greater than or equal to 99/100 on all lighthouse metrics
+- Individual post urls recieve high (>92) scores on all lighthouse metrics barring 'best practices' which is penalised for the use of third party cookies which are being imported by cloudinary
+- Profile pages likewise recieve high scores excepting for the cloudinary cookies dragging down the best practices score
+- User Posts page recieves either 100 or high 90s as it does not include cloudinary content
 
 ## Manual Testing
 
-## Manual Testing
 
 The following table details the manual testing performed on the application:
 
 | Page    | Feature         | Action                                   | Effect                                            | Tested |
 | ------- | --------------- | ---------------------------------------- | ------------------------------------------------- | ------ |
-| Home    | Navigation      | Click on Logo                            | Redirects to home page                            | TBD    |
+| Home    | Navigation      | Click on Logo                            | Redirects to home page                            | ✅    |
 | Home    | Login Form      | Enter valid credentials and submit       | Logs user in and redirects to feed                | ✅     |
 | Home    | Sign Up Link    | Click on Sign Up                         | Redirects to registration page                    | ✅     |
 | Home    | Log Out         | Click on Log Out button                  | Logs user out and redirects to login page         | ✅     |
