@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/components/buttons.css' %}" />
     <link rel="stylesheet" href="{% static 'css/components/overlays.css' %}" />
     <link rel="stylesheet" href="{% static 'css/components/posts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/components/toasts.css' %}" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {% block extra_css %}
@@ -77,6 +78,8 @@
         </div>
       </div>
     {% endif %}
+    <!-- toast for CRUD feedback -->
+    <div id="toast-container"></div>
     {% if user.is_authenticated %}
       <script src="{% static 'js/utils/csrf.js' %}"></script>
       <script src="{% static 'js/utils/syllableCounter.js' %}"></script>
@@ -86,6 +89,7 @@
       <script src="{% static 'js/posts/likePost.js' %}"></script>
     {% endif %}
     <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/utils/toasts.js' %}"></script>
     <script>
       document.querySelector('.nav-toggle').addEventListener('click', function () {
         document.querySelector('nav').classList.toggle('active')

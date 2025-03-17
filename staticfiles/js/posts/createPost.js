@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         .then((response) => response.json())
                         .then((data) => {
                             if (data.success) {
+                                // Show success message
+                                showToast('Post created successfully!', 'success');
                                 // Close the overlay
                                 overlay.style.display = 'none'
 

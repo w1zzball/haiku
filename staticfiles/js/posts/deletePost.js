@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.success) {
+                            // Show success message
+                            showToast('Post deleted successfully!', 'success');
                             postItem.classList.add('fade-out')
                             setTimeout(() => {
                                 postItem.remove()

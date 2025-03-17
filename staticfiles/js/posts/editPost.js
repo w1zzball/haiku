@@ -118,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(data => {
                     if (data.success && data.body) {
+                        // Show success message
+                        showToast('Post updated successfully!', 'success');
                         // Mark as successfully edited
                         activeEditState.isEdited = true;
 
