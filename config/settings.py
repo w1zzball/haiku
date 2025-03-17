@@ -75,11 +75,13 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-# TODO # Additional allauth settings
-# ACCOUNT_LOGOUT_ON_GET = False  # Determines whether to log out immediately on GET request
+# Additional allauth settings
+# ACCOUNT_LOGOUT_ON_GET = False
+# # Determines whether to log out immediately on GET request
 # ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # Where to redirect after logout
 # ACCOUNT_SIGNUP_FORM_CLASS = None  # Custom signup form
-# ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/login/'  # Where to redirect after signup
+# ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/login/'
+# # Where to redirect after signup
 
 
 MIDDLEWARE = [
@@ -160,7 +162,8 @@ CSRF_TRUSTED_ORIGINS = [
 #     SECURE_HSTS_PRELOAD = True
 
 # Add after CSRF settings
-CSRF_COOKIE_SAMESITE = 'Lax'  # Use 'None' with CSRF_COOKIE_SECURE=True if needed
+CSRF_COOKIE_SAMESITE = 'Lax'
+# Use 'None' with CSRF_COOKIE_SECURE=True if needed
 # Use 'None' with SESSION_COOKIE_SECURE=True if needed
 SESSION_COOKIE_SAMESITE = 'Lax'
 
@@ -175,16 +178,28 @@ cloudinary.config(
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator'
+        ),
     },
 ]
 
