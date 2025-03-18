@@ -241,7 +241,9 @@ button i.fa-regular {
     text-align: center;
   }
 }
-
+#no-posts-paragraph {
+  text-align: center;
+}
 #new-post-header {
   color: var(--primary-color);
 }
