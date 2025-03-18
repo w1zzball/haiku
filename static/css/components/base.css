@@ -241,6 +241,11 @@ button i.fa-regular {
     text-align: center;
   }
 }
+
+#new-post-header {
+  color: var(--primary-color);
+}
+
 #delete-profile-overlay {
   color: #dc2626;
 }
