@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.urls import reverse
 
 # Create your models here.
@@ -14,15 +13,19 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts'
     )
+    # remove likes
     likes = models.PositiveIntegerField(default=0)
-    # likes currently not tied to any user TODO full implementation
 
     def __str__(self):
         return f"{self.body[:50]}... | {self.author}"
 
     # m2m relationship with likes
     liked_by = models.ManyToManyField(
-        'profiles.Profile', through='Like', related_name='liked_posts', blank=True)
+        'profiles.Profile',
+        through='Like',
+        related_name='liked_posts',
+        blank=True
+    )
 
     @property
     def likes_count(self):

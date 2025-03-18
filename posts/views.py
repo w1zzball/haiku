@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 import logging
 from django.contrib import messages
 from django.views.decorators.http import require_POST
-from static.helpers.haiku_helpers import format_haiku, is_haiku
+from static.helpers.haiku_helpers import format_haiku
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 # Set up logger
@@ -49,9 +49,11 @@ def create_post(request):
             formatted_haiku = format_haiku(text)
 
             if not formatted_haiku:
+                error_msg = ('Text must follow the 5-7-5 syllable pattern '
+                             'of a haiku.')
                 return JsonResponse({
                     'success': False,
-                    'errors': {'body': ['Text must follow the 5-7-5 syllable pattern of a haiku.']}
+                    'errors': {'body': [error_msg]}
                 })
 
             post = form.save(commit=False)
@@ -68,7 +70,9 @@ def create_post(request):
         return JsonResponse({'success': False, 'errors': form.errors})
 
     form = PostForm()
-    return JsonResponse({'form': render_to_string('posts/includes/post_form.html', {'form': form})})
+    form_html = render_to_string(
+        'posts/includes/post_form.html', {'form': form})
+    return JsonResponse({'form': form_html})
 
 
 @ensure_csrf_cookie
@@ -84,9 +88,11 @@ def edit_post(request, post_id):
             formatted_haiku = format_haiku(text)
 
             if not formatted_haiku:
+                error_message = ('Text must follow the 5-7-5 syllable pattern '
+                                 'of a haiku.')
                 return JsonResponse({
                     'success': False,
-                    'errors': {'body': ['Text must follow the 5-7-5 syllable pattern of a haiku.']}
+                    'errors': {'body': [error_message]}
                 })
 
             post = form.save(commit=False)
@@ -100,7 +106,9 @@ def edit_post(request, post_id):
         return JsonResponse({'success': False, 'errors': form.errors})
 
     form = PostForm(instance=post)
-    return JsonResponse({'form': render_to_string('posts/includes/post_form.html', {'form': form})})
+    form_html = render_to_string(
+        'posts/includes/post_form.html', {'form': form})
+    return JsonResponse({'form': form_html})
 
 
 @login_required
@@ -125,7 +133,7 @@ def delete_profile(request):
     user = request.user
 
     try:
-        # Delete the user (this will cascade delete the profile due to OneToOneField)
+        # Delete user (this will delete the profile due to OneToOneField)
         user.delete()
 
         # If AJAX request

@@ -12,7 +12,6 @@ def home_view(request):
 
     if request.user.is_authenticated:
         # For logged-in users, display personalized content
-        # You might want to show posts from users they follow, or their own posts
         user_profile = request.user.profile
         user_posts = Post.objects.filter(
             author=user_profile).order_by('-created_at')[:5]
