@@ -21,6 +21,7 @@
 
 .post-content {
   padding: 20px;
+  text-align: center;
 }
 
 .post-header {
@@ -54,6 +55,7 @@
   margin: 15px 0;
   white-space: pre-line;
   color: #1a2832;
+  text-align: center;
 }
 
 .post-meta {
