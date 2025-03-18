@@ -78,6 +78,11 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+#posts-header {
+  color: #fff;
+  padding: 0;
+}
+
 /* Adjust post list width for profile page */
 .profile-container .post-list {
   max-width: 100%;

@@ -19,7 +19,6 @@
 
     {% if user.is_authenticated %}
       <div class="user-feed">
-        <h2>Your Recent Posts</h2>
         {% if user_posts %}
           <ul class="post-list">
             {% for post in user_posts %}

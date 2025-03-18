@@ -55,7 +55,7 @@
       <em>Member since: {{ viewed_user.date_joined|date:'F j, Y' }}</em>
     </div>
     <div class="profile-posts">
-      <h2>Posts</h2>
+      <h2 id="posts-header">Posts</h2>
       <ul class="post-list">
         {% for post in posts %}
           {% include 'posts/includes/post_item.html' with post=post show_author=False %}
