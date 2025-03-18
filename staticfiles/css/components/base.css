@@ -197,6 +197,13 @@ button i.fa-regular {
   gap: 5px;
 }
 
+.syllable-counter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--primary-color);
+}
+
 /* Tablet nav styles */
 @media screen and (max-width: 768px) {
   .nav-toggle {
@@ -233,6 +240,13 @@ button i.fa-regular {
     margin-left: 0;
     text-align: center;
   }
+}
+#delete-profile-overlay {
+  color: #dc2626;
+}
+.delete-confirmation p {
+  margin-bottom: 15px;
+  color: #555;
 }
 
 /* copywrite styles */
