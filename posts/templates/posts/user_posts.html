@@ -12,7 +12,7 @@
       {% for post in posts %}
         {% include 'posts/includes/post_item.html' with post=post show_author=False %}
       {% empty %}
-        <li>No posts yet!</li>
+        <li class="no-posts-paragraph">You haven't created any posts yet.</li>
       {% endfor %}
     </ul>
   </div>

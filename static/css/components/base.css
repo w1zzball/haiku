@@ -241,7 +241,7 @@ button i.fa-regular {
     text-align: center;
   }
 }
-#no-posts-paragraph {
+.no-posts-paragraph {
   text-align: center;
 }
 #new-post-header {
