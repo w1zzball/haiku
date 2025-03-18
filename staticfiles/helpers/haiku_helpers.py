@@ -47,14 +47,16 @@ def syllables(word: str) -> int:
     if clean_word.endswith('ed'):
         # If preceded by 't' or 'd', 'ed' is pronounced (waited, needed)
         # Otherwise after a consonant it's silent (jumped, called)
-        if len(clean_word) > 2 and clean_word[-3] not in vowels and clean_word[-3] not in 'td':
+        if (len(clean_word) > 2 and clean_word[-3] not in vowels
+                and clean_word[-3] not in 'td'):
             clean_word = clean_word[:-1]  # Remove d, treating 'ed' as 'e'
 
     # Handle common vowel patterns
     if 'ea' in clean_word:
         if clean_word.endswith('es'):
             clean_word = clean_word[:-2] + 'e'  # Treat 'es' ending as silent
-        elif not any(ending in clean_word for ending in ['each', 'ead', 'eal', 'eam', 'ean']):
+        elif not any(ending in clean_word for ending
+                     in ['each', 'ead', 'eal', 'eam', 'ean']):
             clean_word = clean_word.replace('ea', 'ee')
 
     # Handle 'ei' patterns similar to 'ea'
@@ -79,7 +81,8 @@ def syllables(word: str) -> int:
         count -= 1
 
     # Handle endings that usually form syllables
-    if any(clean_word.endswith(ending) for ending in ['le', 'les']) and not clean_word[-3] in vowels:
+    if (any(clean_word.endswith(ending) for ending in ['le', 'les']) and
+            not clean_word[-3] in vowels):
         # Words ending in 'le' should have at least 2 syllables
         count = max(count, 2)
 
@@ -95,10 +98,14 @@ def clean_text(text: str) -> list:
     """Clean arbitrary text and return a list of words."""
     # Remove line numbers and periods at start
     text = ' '.join(text.split())
-    text = ' '.join(word for word in text.split() if not word[0].isdigit())
+    text = ' '.join(
+        word for word in text.split() if not word[0].isdigit()
+    )
 
     # Keep only letters, apostrophes, and spaces
-    cleaned = ''.join(char for char in text if char.isalpha() or char in "' ")
+    cleaned = ''.join(
+        char for char in text if char.isalpha() or char in "' "
+    )
 
     # Split into words and remove empty strings
     words = [word for word in cleaned.split() if word]
@@ -145,8 +152,10 @@ def format_haiku(text: str) -> str:
         lines.append(' '.join(current_line))
 
     # Verify we have exactly 3 lines with correct syllable counts
-    if len(lines) == 3 and all(haiku_syllable_count(line) == count
-                               for line, count in zip(lines, target_counts)):
+    if len(lines) == 3 and all(
+        haiku_syllable_count(line) == count
+        for line, count in zip(lines, target_counts)
+    ):
         return '\n'.join(lines)
     return ""
 
@@ -170,36 +179,15 @@ if __name__ == "__main__":
                         continue
 
                     result = is_haiku(line)
-                    formatted = format_haiku(line)
-                    syllable_count = haiku_syllable_count(line)
                     if not result:
                         for word in line.split():
                             print(f"{word} ({syllables(word)})", end=" ")
-                        print("\nnot a haiku"+"-" * 40)
-                    # print(
-                    #     f"\n {'Valid haiku' if result else 'Not a haiku'} | Syllable count: {syllable_count}")
-                    # if formatted:
-                    #     print(f"  Formatted:\n{formatted}")
+                        print("\nnot a haiku" + "-" * 40)
 
         except FileNotFoundError:
             print(f"File not found: {filepath}")
         except Exception as e:
             print(f"Error reading file: {e}")
 
-    # # Test individual words/lines
-    # test_cases = [
-    #     "silent pond ripples frog jumps in water splash mountain reflection calm",
-    #     "autumn leaves falling gentle breeze carries them down winter is coming",
-    #     "this is just a test to see if the code works well thanks for checking"
-    # ]
-
-    # for test in test_cases:
-    #     print(f"Test: '{test}'")
-    #     print(f"Is haiku: {is_haiku(test)}")
-    #     print(f"Formatted: \n{format_haiku(test)}")
-    #     print(f"Syllable count: {haiku_syllable_count(test)}")
-    #     print("-" * 40)
-
-    # Test from file if argument provided
     if len(sys.argv) > 1:
         test_file_haikus(sys.argv[1])
