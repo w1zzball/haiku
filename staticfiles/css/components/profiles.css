@@ -78,6 +78,16 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+#posts-header {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  border: 0;
+  text-align: center;
+}
+
 /* Adjust post list width for profile page */
 .profile-container .post-list {
   max-width: 100%;
