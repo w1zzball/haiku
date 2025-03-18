@@ -8,8 +8,6 @@ from .models import Post, Like
 from profiles.models import Profile
 from django.template.loader import render_to_string
 import logging
-from django.contrib import messages
-from django.views.decorators.http import require_POST
 from static.helpers.haiku_helpers import format_haiku
 from django.views.decorators.csrf import ensure_csrf_cookie
 
@@ -71,7 +69,10 @@ def create_post(request):
 
     form = PostForm()
     form_html = render_to_string(
-        'posts/includes/post_form.html', {'form': form})
+        'posts/includes/post_form.html',
+        {'form': form},
+        request=request  # Add this line to provide request context
+    )
     return JsonResponse({'form': form_html})
 
 
@@ -124,42 +125,6 @@ def delete_post(request, post_id):
 
     post.delete()
     return JsonResponse({'success': True})
-
-
-@login_required
-@require_POST
-def delete_profile(request):
-    """Delete the user's profile"""
-    user = request.user
-
-    try:
-        # Delete user (this will delete the profile due to OneToOneField)
-        user.delete()
-
-        # If AJAX request
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse({
-                'success': True,
-                'redirect_url': '/'
-            })
-
-        # For non-AJAX requests
-        return redirect('home')
-
-    except Exception as e:
-        # Log the error
-        logger.error(f"Error deleting profile for {user.username}: {str(e)}")
-
-        # If AJAX request
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse({
-                'success': False,
-                'error': 'There was an error deleting your profile.'
-            }, status=500)
-
-        # For non-AJAX requests
-        messages.error(request, 'There was an error deleting your profile.')
-        return redirect('profile', username=user.username)
 
 
 @login_required

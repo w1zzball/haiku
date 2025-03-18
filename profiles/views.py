@@ -1,11 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from .models import Profile
 from posts.models import Post
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .forms import ProfileForm
+import logging
+from django.contrib import messages
+
+# Add logger configuration
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
 
@@ -65,3 +70,38 @@ def update_profile_pic(request):
             'success': False,
             'error': 'No image was uploaded.'
         }, status=400)
+
+
+@login_required
+def delete_profile(request):
+    """Delete the user's profile"""
+    user = request.user
+
+    try:
+        # Delete user (this will delete the profile due to OneToOneField)
+        user.delete()
+
+        # If AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': True,
+                'redirect_url': '/'
+            })
+
+        # For non-AJAX requests
+        return redirect('home')
+
+    except Exception as e:
+        # Log the error
+        logger.error(f"Error deleting profile for {user.username}: {str(e)}")
+
+        # If AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'error': 'There was an error deleting your profile.'
+            }, status=500)
+
+        # For non-AJAX requests
+        messages.error(request, 'There was an error deleting your profile.')
+        return redirect('profile', username=user.username)
