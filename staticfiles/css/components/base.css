@@ -107,6 +107,12 @@ nav li a:hover {
   transition: all 0.3s ease;
 }
 
+.welcome-section {
+  text-align: center;
+  padding: 10px 0;
+  border-top: 2px solid var(--border-color);
+}
+
 /* fontawesome icon styling*/
 button i.fas,
 button i.far,
