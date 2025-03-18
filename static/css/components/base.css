@@ -270,3 +270,30 @@ button i.fa-regular {
     bottom: -25px; /* Slightly lower on mobile */
   }
 }
+
+/* Sticky footer styles */
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* Make main content area grow to push footer down */
+.main-content {
+  flex: 1 0 auto;
+}
+
+/* Make footer not shrink */
+footer {
+  flex-shrink: 0;
+}
