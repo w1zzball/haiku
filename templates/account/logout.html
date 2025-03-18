@@ -1,5 +1,11 @@
 {% extends 'base_generic.html' %}
 
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/components/auth.css' %}" />
+{% endblock %}
+
 {% block meta_description %}
   Sign out of your Haiku Microblog account.
 {% endblock %}
@@ -9,21 +15,18 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <h1>Sign Out</h1>
+  <div class="auth-container">
+    <div class="auth-content">
+      <h1 class="auth-title">Sign Out</h1>
 
+      <form class="auth-form" method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
         <p>Are you sure you want to sign out?</p>
-
-        <form method="post" action="{% url 'account_logout' %}">
-          {% csrf_token %}
-          {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <button type="submit" class="btn btn-danger">Sign Out</button>
-        </form>
-      </div>
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button type="submit" class="btn btn-danger">Sign Out</button>
+      </form>
     </div>
   </div>
 {% endblock %}

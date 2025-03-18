@@ -1,5 +1,11 @@
 {% extends 'base_generic.html' %}
 
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/components/auth.css' %}" />
+{% endblock %}
+
 {% block meta_description %}
   Join Haiku Microblog - Sign up to create and share your own haikus, or log in if you're already a member.
 {% endblock %}
@@ -9,21 +15,21 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <h1>Sign In</h1>
+  <div class="auth-container">
+    <div class="auth-content">
+      <h1 class="auth-title">Sign In</h1>
 
-        <form class="login" method="POST" action="{% url 'account_login' %}">
-          {% csrf_token %}
-          {{ form.as_p }}
-          {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <button class="btn btn-primary" type="submit">Sign In</button>
-          <a href="{% url 'account_signup' %}">Sign up</a>
-        </form>
-      </div>
+      <form class="auth-form" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn" type="submit">Sign In</button>
+        <p class="auth-link">
+          Don't have an account? <a href="{% url 'account_signup' %}">Sign up</a>
+        </p>
+      </form>
     </div>
   </div>
 {% endblock %}
