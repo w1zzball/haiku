@@ -226,23 +226,32 @@ button i.fa-regular {
   nav.active {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center items horizontally */
   }
-
-  /* Remove nav-center mobile styles */
 
   /* Stack left and right sections vertically */
   .nav-left,
   .nav-right {
     flex-direction: column;
     width: 100%;
+    align-items: center; /* Center items horizontally */
+  }
+
+  nav ul {
+    width: 100%;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
   }
 
   nav ul li {
     margin: 10px 0;
     margin-left: 0;
+    width: 100%;
     text-align: center;
+    padding-right: 35px;
   }
 }
+
 .no-posts-paragraph {
   text-align: center;
 }
