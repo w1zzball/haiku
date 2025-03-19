@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class UserPostsListView(ListView):
     model = Post
-    template_name = 'posts/user_posts.html'  # Specify your template name
+    template_name = 'posts/user_posts.html'
     context_object_name = 'posts'
     # Order posts by creation date in descending order
     ordering = ['-created_at']
@@ -71,7 +71,7 @@ def create_post(request):
     form_html = render_to_string(
         'posts/includes/post_form.html',
         {'form': form},
-        request=request  # Add this line to provide request context
+        request=request
     )
     return JsonResponse({'form': form_html})
 
@@ -79,7 +79,6 @@ def create_post(request):
 @ensure_csrf_cookie
 @login_required
 def edit_post(request, post_id):
-    # Changed from author=request.user to author=request.user.profile
     post = get_object_or_404(Post, id=post_id, author=request.user.profile)
 
     if request.method == 'POST':
