@@ -33,3 +33,13 @@
   margin-top: 1rem;
   text-align: left;
 }
+
+.auth-container a {
+  color: #89d4e8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-container a:hover {
+  text-decoration: underline;
+}

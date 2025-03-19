@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const clickableTexts = document.querySelectorAll('.selectable-clickable');
 
     clickableTexts.forEach(function (element) {
-        element.addEventListener('click', function (e) {
+        element.addEventListener('click', function () {
             // Check if text is being selected
             const selection = window.getSelection();
             if (selection.toString().length === 0) {
