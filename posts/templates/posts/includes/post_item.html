@@ -5,7 +5,7 @@
     <div class="post-header">
       {% if show_author %}
         <div class="post-author">
-          <img src="{{ post.author.profile_pic.url|default:'/static/images/profile_pictures/default1.bmp' }}" alt="{{ post.author }}'s profile" class="profile-thumbnail" />
+          <a href="{% url 'user-posts' username=post.author.user.username %}"><img src="{{ post.author.profile_pic.url|default:'/static/images/profile_pictures/default1.bmp' }}" alt="{{ post.author }}'s profile" class="profile-thumbnail" /></a>
           <a href="{% url 'user-posts' username=post.author.user.username %}">{{ post.author }}</a>
         </div>
       {% endif %}
