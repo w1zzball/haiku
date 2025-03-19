@@ -236,27 +236,39 @@ W3C CSS validator returns no errors on any of the static css components.
 ## Manual Testing
 
 
-The following table details the manual testing performed on the application:
+The following table details the manual testing performed on the application: 
 
-| Page    | Feature         | Action                                   | Effect                                            | Tested |
+| Context    | Feature         | Action                                   | Effect                                            | Tested |
 | ------- | --------------- | ---------------------------------------- | ------------------------------------------------- | ------ |
-| Home    | Navigation      | Click on Logo                            | Redirects to home page                            | ✅    |
-| Home    | Login Form      | Enter valid credentials and submit       | Logs user in and redirects to feed                | ✅     |
-| Home    | Sign Up Link    | Click on Sign Up                         | Redirects to registration page                    | ✅     |
-| Home    | Log Out         | Click on Log Out button                  | Logs user out and redirects to login page         | ✅     |
-| Home    |                 |                                          |                                                   | ✅     |
-| Home    |                 |                                          |                                                   | ✅     |
-| Home    |                 |                                          |                                                   | ✅     |
-| Home    |                 |                                          |                                                   | ✅     |
-| Home    |                 |                                          |                                                   | ✅     |
-| Profile | Profile Picture | Upload new image                         | Updates profile picture in database and UI        | ✅     |
-| Profile | Bio             | Edit and save bio text                   | Updates bio in database and UI                    | ✅     |
-| Profile |                 |                                          |                                                   | ✅     |
-| Feed    | Create Post     | Enter haiku and click submit             | New post appears in feed without page refresh     | ✅     |
-| Feed    | Validation      | Enter text with incorrect syllable count | Error message displays explaining 5-7-5 structure | ✅     |
-| Posts   | Edit Post       | Click edit, modify text, save            | Post is updated with new content                  | ✅     |
-| Posts   | Delete Post     | Click delete button                      | Post is removed from feed                         | ✅     |
-| Account | Delete Account  | Go to settings, click delete account     | Account and associated data removed               | ✅     |
+| Site Wide    | Navigation      | Click on Logo                            | Redirects to home page                            | ✅    |
+| Site Wide    | Individual Post Page      | Click on Post's text         | Redirects to post's unique URL                            | ✅    |
+| Logged Out    | Login       | Click on Login link       | Redirects to login page                | ✅     |
+| Logged Out    | Sign Up     | Click on Sign Up link                        | Redirects to registration page                    | ✅     |
+| Logged In    | Log Out         | Click on Log Out link                  | Redirects to logout page         | ✅     |
+| Logged In    | New Post  |    Click on Plus button   |       Opens create new post overlay      | ✅     |
+| Logged In    |  Like Post  |   Click the heart button on unliked post    |    Like is registered and heart changes colour to give feedback    | ✅     |
+| Logged In    |  Unlike Post   |   Click the heart button on liked post    |  Like is removed and heart changes colour to give feedback   | ✅     |
+| Logged In    | Edit Post   |  Click the Edit Button on a post   |     Opens edit post overlay   | ✅     |
+| Logged In    | Delete Post   |  Click the Delete Button on a post   |     Opens delete post confirmation   | ✅     |
+| New Post    | Cancel   |     Click on cancel button         |     Closes create new post overlay        | ✅     |
+| New Post    |  Post validation  |  Click on save with inccorect content (non haiku)  |  Error message shown, post not submitted  | ✅     |
+| New Post    | Post Submission |  Click on save with correct content    |  Post submitted message shown, post submitted, UI updated    | ✅     |
+| Edit Post    | Cancel   |     Click on cancel button         |     Closes edit post overlay        | ✅     |
+| Edit Post    |  Post validation  |  Click on save with inccorect content (non haiku)  |  Error message shown, edit not submitted  | ✅     |
+| Edit Post    | Post Submission |  Click on save with correct content    |  Post edited message shown, edit submitted, UI updated    | ✅     |
+| Delete Post    | Cancel   |     Click on Cancel button         |     dismisses delete confirmation        | ✅     |
+| Delete Post    | Delete   |     Click on Okay button         |     Post Deleted in database and UI         | ✅     |
+| Profile | Profile Picture |  Upload new image                         | Updates profile picture in database and UI        | ✅     |
+| Profile | Edit Bio             | Edit and save bio text                   | Updates bio in database and UI                    | ✅     |
+| Profile | Delete Profile |   Click on Delete profile button    |     Opens delete profile confirmation     | ✅     |
+| Delete Profile    | Cancel   |     Click on Cancel button         |     dismisses delete confirmation        | ✅     |
+| Delete Profile    | Delete   |     Click on Confirm button         |     Profile Deleted in database and User redirected to homepage         | ✅     |
+| Log Out Page   |   Sign Out Button   |   Click sign out button     |     User logged out and redirected to homepage   | ✅     |
+| Log In Page    |  Login validation  |  Click Login button with incorrect credentials     |   user prompted to enter correct credentials  | ✅     |
+| Log In Page    |  Login validation  |  Click Login button with correct credentials     |   User logged in and redirected to homepage      | ✅     |
+| Sign Up Page    | Sign Up validation | Click sign up button with incorrect credentials   |    User prompted to enter correct credentials  | ✅     |
+| Sign Up Page    | Sign Up validation |  Click sign up button with correct credentials  |   Account created, user logged in and redirected to homepage  | ✅     |
+
 
 ## | Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately |
 
