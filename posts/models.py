@@ -13,8 +13,6 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts'
     )
-    # remove likes
-    likes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.body[:50]}... | {self.author}"
