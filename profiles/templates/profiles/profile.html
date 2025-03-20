@@ -86,7 +86,7 @@
     <!-- Bio Edit Overlay -->
     <div id="bio-edit-overlay" class="overlay">
       <div class="overlay-content">
-        <h2>Edit Your Bio</h2>
+        <h2 class="overlay-text">Edit Your Bio</h2>
         <form id="bio-form">
           {% csrf_token %}
           <textarea id="bio-textarea" name="bio" maxlength="500">{{ profile.bio }}</textarea>
@@ -101,7 +101,7 @@
     <!-- Profile Picture Edit Overlay -->
     <div id="pic-edit-overlay" class="overlay">
       <div class="overlay-content">
-        <h2 class="change-profile-paragraph">Change Profile Picture</h2>
+        <h2 class="overlay-text">Change Profile Picture</h2>
         <form id="pic-form" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="file-input-container">
