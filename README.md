@@ -34,6 +34,8 @@ description of site
       - [Kanban Board](#kanban-board)
   - [Use of AI](#use-of-ai)
   - [Deployment](#deployment)
+    - [Local Developement](#local-developement)
+    - [Deployment to Heroku](#deployment-to-heroku)
   - [Testing](#testing)
       - [HTML](#html)
       - [CSS](#css)
@@ -218,7 +220,42 @@ Github's Copilot AI was used to give suggestions for features or improvements, t
 ---
 ## Deployment
 
-- deployed to heroku
+The project was deployed locally for initial testing and development then later to heroku, both local and remote deployments were kept up to date with oneanother so each could be used as a reliable model for refinement.
+
+### Local Developement
+To deploy locally follow these steps-
+1. Clone the Repository
+```
+git clone https://github.com/w1zzball/haiku.git
+cd haiku
+```
+2. Set Up a Virtual Environment
+```
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+3. Install Dependencies
+```
+pip install -r requirements.txt
+```
+4. Set Up Environment Variables Create a .env file in the root directory with:
+```
+SECRET_KEY=your_secret_key
+DEBUG=True
+CLOUDINARY_URL=your_cloudinary_url
+DATABASE_URL=your_local_database_url
+```
+5. Apply Migrations
+```
+python manage.py migrate
+```
+6. Run the Development Server
+```
+python manage.py runserver
+```
+   
+
+### Deployment to Heroku
 
 ---
 
