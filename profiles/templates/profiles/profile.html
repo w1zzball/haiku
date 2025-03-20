@@ -89,7 +89,7 @@
         <h2 class="overlay-text">Edit Your Bio</h2>
         <form id="bio-form">
           {% csrf_token %}
-          <textarea id="bio-textarea" name="bio" maxlength="500">{{ profile.bio }}</textarea>
+          <textarea id="bio-textarea" class="post-form-textarea" name="bio" maxlength="500">{{ profile.bio }}</textarea>
           <div class="form-actions">
             <button type="submit" class="btn">Save</button>
             <button type="button" class="btn btn-cancel" id="cancel-bio-edit">Cancel</button>
