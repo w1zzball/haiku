@@ -208,6 +208,13 @@ To help streamline design and pinpoint key features I employed a Kanban Board to
 ---
 ## Use of AI
 
+Github's Copilot AI was used to give suggestions for features or improvements, these were then refined and implemented. Here are some examples of how AI was utilised:
+
+- **Suggestion of novel methods** : Asking for advice on the implementaion of post creation, copilot suggested using AJAX to implement dynamic loading of new elements without full page refreshes. I had no experience with the XHR API and after consulting the MDN documentation and some guides I implemented the post CRUD functionality with AJAX. Using copilot to diagnose and troubleshoot errors as I went. 
+- **Generating model data** : To test the like, profile view and post feeds I needed multiple database entries. Manually creating these would have been tedious and as such I instead dumped my database into a json file which I then gave as context to copilot with a prompt of the form "use this database structure to construct test data, there should be at least 5 accounts, each having at least 3 posts, each post being a haiku...". The test data was then loaded back into the database allowing me to test for problems with larger scale data interacting with templates etc.
+- **Generating test data** : To test the haiku validation code I wrote a main guard entrypoint into the haiku_helpers.py module which would take test haiku and log out validation results. To test this I used microsofts copilot web app to generate larger sets of haiku which I then fed into the validator and based on the results I refined the validator for edge cases.
+- **Refactoring CSS** : As my project grew larger, the single stylesheet I had been using began to grow to cumbersome size, I decided to refactor the stylesheet into multiple modular components, each responsible for a specific aspect of the app; which could then be included only where necessary. I prompted copilot to split up my styles.css file into a few components "base", "posts", "profiles" etc. It then copied the relevant parts of the stylesheet into their own modules. I then manually reviewed the new files to make sure no actual content had been changed and that the correct css rules where in the correct files.
+
 ---
 ## Deployment
 
