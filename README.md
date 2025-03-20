@@ -224,39 +224,60 @@ The project was deployed locally for initial testing and development then later 
 
 ### Local Developement
 To deploy locally follow these steps-
-1. Clone the Repository
-```
-git clone https://github.com/w1zzball/haiku.git
-cd haiku
-```
-2. Set Up a Virtual Environment
-```
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-3. Install Dependencies
-```
-pip install -r requirements.txt
-```
-4. Set Up Environment Variables Create a .env file in the root directory with:
-```
-SECRET_KEY=your_secret_key
-DEBUG=True
-CLOUDINARY_URL=your_cloudinary_url
-DATABASE_URL=your_local_database_url
-```
-5. Apply Migrations
-```
-python manage.py migrate
-```
-6. Run the Development Server
-```
-python manage.py runserver
-```
-   
+1. Clone the Repository, run
 
+   - `git clone https://github.com/w1zzball/haiku.git`
+   - `cd haiku`
+
+2. Set Up a Virtual Environment, run
+   - `python -m venv venv`
+   - `source venv/bin/activate  # On Windows: venv\Scripts\activate`
+
+1. Install Dependencies, run
+
+   - `pip install -r requirements.txt`
+
+2. Set Up Environment Variables
+   - Create a env.py file in the root directory with contents:
+      ```
+      import os
+      os.environ.setdefault("KEY","VALUE")
+      ...
+      ```
+      key / values to supply
+     - `SECRET_KEY=your_secret_key`
+     - `DEBUG=foo #any non null value will enable debug mode as the settings.py file looks to see if any value exists.` 
+     - `CLOUDINARY_URL=your_cloudinary_url`
+     - `DATABASE_URL=your_database_url`
+
+3. Apply Migrations, run
+   - `python manage.py migrate`
+4. Run the Development Server, run
+    - `python manage.py runserver`
+---
 ### Deployment to Heroku
-
+1. Create a Heroku Account and New App
+   - Sign up at Heroku
+   - Create a new app with a unique name
+   - Select the relevant region
+2. Configure Environment Variables
+   - In Heroku dashboard, go to "Settings" > "Config Vars"
+   - Add the following variables:
+      - `SECRET_KEY`: Your Django secret key
+      - `CLOUDINARY_URL`: Your Cloudinary URL
+      - `DATABASE_URL`: Your Database URL
+  - **DO NOT** set a debug variable
+3. Prepare for Deployment
+   - Create a Procfile in your project root, add
+   - `web: gunicorn haiku.wsgi`
+   - Ensure requirements.txt is up-to-date, run
+   - `pip freeze > requirements.txt`
+4. Deploy to Heroku
+   - Connect your GitHub repository:
+     - In Heroku dashboard, go to "Deploy"
+     - Choose "GitHub" as deployment method
+     - Connect to your repository
+   - Enable automatic deploys or deploy manually from your main branch
 ---
 
 ## Testing
