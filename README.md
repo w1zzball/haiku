@@ -40,7 +40,6 @@ description of site
       - [Python / Unit tests](#python--unit-tests)
       - [Lighthouse](#lighthouse)
   - [Manual Testing](#manual-testing)
-  - [| Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately |](#-mobile--responsive-design--view-site-on-multiple-screen-sizes--layout-adapts-appropriately-)
   - [Technologies Used](#technologies-used)
   - [Credits](#credits)
 
@@ -268,9 +267,7 @@ The following table details the manual testing performed on the application:
 | Log In Page    |  Login validation  |  Click Login button with correct credentials     |   User logged in and redirected to homepage      | ✅     |
 | Sign Up Page    | Sign Up validation | Click sign up button with incorrect credentials   |    User prompted to enter correct credentials  | ✅     |
 | Sign Up Page    | Sign Up validation |  Click sign up button with correct credentials  |   Account created, user logged in and redirected to homepage  | ✅     |
-
-
-## | Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately |
+| Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately | ✅ |
 
 ## Technologies Used
 
