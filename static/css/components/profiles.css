@@ -28,15 +28,19 @@
 
 .profile-info h1 {
   margin-bottom: 10px;
+  color: #89d4e8;
 }
 
 .profile-bio {
   font-style: italic;
-  color: #505d66;
+  color: #ffffff;
   max-width: 500px;
 }
 
-/* Profile edit styles */
+.profile-joined-date {
+  color: #89d4e8;
+}
+
 #change-pic-btn {
   position: absolute;
   bottom: 0;
