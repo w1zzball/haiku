@@ -32,6 +32,7 @@ description of site
   - [Agile Methodologies](#agile-methodologies)
       - [Acceptance Criteria/User Stories](#acceptance-criteriauser-stories)
       - [Kanban Board](#kanban-board)
+  - [Use of AI](#use-of-ai)
   - [Deployment](#deployment)
   - [Testing](#testing)
       - [HTML](#html)
@@ -61,7 +62,7 @@ description of site
 
 #### User Stories
 
-(Expanded on in [associated project board](https://github.com/users/w1zzball/projects/7))
+[associated project board](https://github.com/users/w1zzball/projects/7)
 
 - User Story: As a new user, I want to sign up and create an account so that I can start sharing my haikus.
 
@@ -79,7 +80,7 @@ description of site
 
 #### Design
 
-Given the simplicity and clarity of the haiku form, it feels natural that the website design should be likewise minimal and unobtrusive, as such I have opted for a light and clear style and an easy to read font
+Given the simplicity and clarity of the haiku form, it feels natural that the website design should be likewise minimal and unobtrusive, as such I have opted for a  clear style and an easy to read font, I had originally planned to use a light theme but after accessibility testing I changed the styling to a darker blue hued theme for easier legibility and reduced eye-strain.
 
 #### Wireframes
 
@@ -201,10 +202,13 @@ The Likes model saves when a user likes a post
 After the initial ideation I wrote a few possible user stories and using microsoft copilot I refined these rough sketches into actionable task lists, with acceptance criteria and what tasks needed to be done to meet them. These were then added to a Kanban Board.
 
 #### Kanban Board
+[associated project board](https://github.com/users/w1zzball/projects/7)
 To help streamline design and pinpoint key features I employed a Kanban Board to track my progress and used the MoSCoW prioritisation method to sort tasks by how essential they were to the minimum viable product. This was impemented using githubs built in project boards, using custom labels to sort which items were must have/should have/could haves. 
 
 ---
+## Use of AI
 
+---
 ## Deployment
 
 - deployed to heroku
