@@ -271,17 +271,17 @@ The following table details the manual testing performed on the application:
 
 ## Technologies Used
 
--HTML5
--CSS3
--JavaScript
--Python
--Django
--PostgreSQL
--Cloudinary
--Whitenoise
--Balsamiq
--dbdiagram.io
--Miroboard
+- HTML5
+- CSS3
+- JavaScript
+- Python
+- Django
+- PostgreSQL
+- Cloudinary
+- Whitenoise
+- Balsamiq
+- dbdiagram.io
+- Miroboard
 
 ---
 
