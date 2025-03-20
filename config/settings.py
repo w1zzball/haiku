@@ -75,14 +75,6 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-# Additional allauth settings
-# ACCOUNT_LOGOUT_ON_GET = False
-# # Determines whether to log out immediately on GET request
-# ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # Where to redirect after logout
-# ACCOUNT_SIGNUP_FORM_CLASS = None  # Custom signup form
-# ACCOUNT_SIGNUP_REDIRECT_URL = '/accounts/login/'
-# # Where to redirect after signup
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -146,26 +138,9 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
 ]
 
-# CSRF_COOKIE_SECURE = True  # Only send cookie over HTTPS
-# CSRF_COOKIE_SAMESITE = 'Strict'  # Protect against CSRF
-# SESSION_COOKIE_SECURE = True  # Only send session cookie over HTTPS
 
-# # Security Headers
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
-
-# # Only set these in production
-# if not DEBUG:
-#     SECURE_BROWSER_XSS_FILTER = True
-#     SECURE_CONTENT_TYPE_NOSNIFF = True
-#     SECURE_HSTS_SECONDS = 31536000  # 1 year
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#     SECURE_HSTS_PRELOAD = True
-
-# Add after CSRF settings
 CSRF_COOKIE_SAMESITE = 'Lax'
-# Use 'None' with CSRF_COOKIE_SECURE=True if needed
-# Use 'None' with SESSION_COOKIE_SECURE=True if needed
+
 SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Cloudinary configuration
