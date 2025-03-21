@@ -21,7 +21,6 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
         - [Tablet](#tablet)
         - [PC](#pc)
       - [User Flow Diagram](#user-flow-diagram)
-  - [](#)
   - [Database Structure](#database-structure)
       - [Essential Schema](#essential-schema)
         - [Profile](#profile)
@@ -107,6 +106,7 @@ The site was designed using a mobile first approach
 #### User Flow Diagram
 
 ![User Flow Diagram](./docs/images/misc/userflow.webp)
+
 ---
 
 ## Database Structure
