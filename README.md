@@ -20,6 +20,8 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
         - [Mobile](#mobile)
         - [Tablet](#tablet)
         - [PC](#pc)
+      - [User Flow Diagram](#user-flow-diagram)
+  - [](#)
   - [Database Structure](#database-structure)
       - [Essential Schema](#essential-schema)
         - [Profile](#profile)
@@ -101,6 +103,10 @@ The site was designed using a mobile first approach
 
 ![PC Wireframe](./docs/images/wireframes/PC.webp)
 
+---
+#### User Flow Diagram
+
+![User Flow Diagram](./docs/images/misc/userflow.webp)
 ---
 
 ## Database Structure
@@ -344,12 +350,14 @@ The following table details the manual testing performed on the application:
 - JavaScript
 - Python
 - Django
-- PostgreSQL
+- PostgreSQL - main database
 - Cloudinary
 - Whitenoise
-- Balsamiq
-- dbdiagram.io
-- Miroboard
+- Balsamiq - for creating wireframes
+- dbdiagram.io - for creating ERD diagrams 
+- Miroboard - for creating a user flow diagram
+- Favicon.io - for creating a favicon
+- coolers.co - for creating colour palattes 
 
 ---
 
