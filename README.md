@@ -41,7 +41,7 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
       - [HTML](#html)
       - [CSS](#css)
       - [JavaScript](#javascript)
-      - [Python / Unit tests](#python--unit-tests)
+      - [Python](#python)
       - [Lighthouse](#lighthouse)
   - [Manual Testing](#manual-testing)
   - [Technologies Used](#technologies-used)
@@ -303,7 +303,10 @@ W3C CSS validator returns no errors on any of the static css components.
 
 #### JavaScript
 
-#### Python / Unit tests
+
+#### Python
+
+All python files return no errors when checked with the [CI Python Linter](https://pep8ci.herokuapp.com/)
 
 #### Lighthouse
 
