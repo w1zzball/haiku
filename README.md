@@ -1,8 +1,8 @@
-# Haiku Microblog
+# Hai.ku
 
 ---
 
-description of site
+Hai.ku is a minimalist microblogging app, by constraining the content of posts to the 5-7-5 syllable haiku structure it challenges the user to express themselves within such a laconic form. The project was inspired by the original 140 character limit on twitter and the  Lars von Trier, Jørgen Leth film [The Five Obstructions](https://en.wikipedia.org/wiki/The_Five_Obstructions).
 
 - [Link to live project](https://haiku-microblog-ff81dfcf5cfd.herokuapp.com/)
 
@@ -10,7 +10,7 @@ description of site
 
 ## Table of Contents
 
-- [Haiku Microblog](#haiku-microblog)
+- [Hai.ku](#haiku)
   - [Table of Contents](#table-of-contents)
   - [UX/UI](#uxui)
       - [Target Audience](#target-audience)
