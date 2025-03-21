@@ -111,7 +111,7 @@ The core of the microblog uses two models profile and post.
 
 ##### Profile
 
-The profile model extends the default user model supplied by django with fields for a user bio and user uploaded profile image hosted using Cloudinary. As it depends upon the user model it is created when the user model is created and similarly updated when the user is updated using the `@reciever` decorator in the model definition. It also is deleted if the corresponding user is deleted
+The custom profile model extends the default user model supplied by django with fields for a user bio and user uploaded profile image hosted using Cloudinary. As it depends upon the user model it is created when the user model is created and similarly updated when the user is updated using the `@reciever` decorator in the model definition. It also is deleted if the corresponding user is deleted
 
 | field       | value                                                | explanation            |
 | ----------- | ---------------------------------------------------- | ---------------------- |
@@ -121,14 +121,13 @@ The profile model extends the default user model supplied by django with fields 
 
 ##### Post
 
-The post model holds the users posts. It is linked to the posters profile and will be deleted upon deletion of the the posters profile, it also contains information on the posts creation date, and how many likes the post has
+The post model holds the users posts. It is linked to the posters profile and will be deleted upon deletion of the the posters profile, it also contains information on the posts creation date
 
 | field      | value                                                                                 | explanation                          |
 | ---------- | ------------------------------------------------------------------------------------- | ------------------------------------ |
 | body       | models.TextField()                                                                    | content of the post                  |
 | created_at | models.DateTimeField(auto_now_add=True)                                               | timestamp when post was created      |
 | author     | models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name='posts') | link to profile who created the post |
-| likes      | models.PositiveIntegerField(default=0)                                                | number of likes on the post          |
 
 ##### Likes
 
