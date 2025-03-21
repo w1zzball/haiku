@@ -81,9 +81,15 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
 
 - As a user, I want to search for haikus by keywords, themes, or authors so that I can find specific content.
 
+---
+
 #### Design
 
 Given the simplicity and clarity of the haiku form, it feels natural that the website design should be likewise minimal and unobtrusive, as such I have opted for a  clear style and an easy to read font, I had originally planned to use a light theme but after accessibility testing I changed the styling to a darker blue hued theme for easier legibility and reduced eye-strain.
+
+![styling sheet](./docs/images/misc/styling.png)
+
+---
 
 #### Wireframes
 
