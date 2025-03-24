@@ -44,7 +44,7 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
       - [Python](#python)
       - [Lighthouse](#lighthouse)
   - [Manual Testing](#manual-testing)
-  - [Technologies Used](#technologies-used)
+  - [Technologies / Resources Used](#technologies--resources-used)
   - [Credits](#credits)
 
 ---
@@ -303,6 +303,7 @@ W3C CSS validator returns no errors on any of the static css components.
 
 #### JavaScript
 
+JSHint returns no errors when allowing for ES6 and Browser features
 
 #### Python
 
@@ -352,7 +353,7 @@ The following table details the manual testing performed on the application:
 | Sign Up Page    | Sign Up validation |  Click sign up button with correct credentials  |   Account created, user logged in and redirected to homepage  | ✅     |
 | Mobile | Responsive Design | View site on multiple screen sizes | Layout adapts appropriately | ✅ |
 
-## Technologies Used
+## Technologies / Resources Used
 
 - HTML5
 - CSS3
@@ -366,8 +367,12 @@ The following table details the manual testing performed on the application:
 - dbdiagram.io - for creating ERD diagrams 
 - Miroboard - for creating a user flow diagram
 - Favicon.io - for creating a favicon
-- coolers.co - for creating colour palattes 
+- coolers.co - for creating colour palattes
+- Code Institute's Python linter - Python validation
+- JSHint - JS validation
 
 ---
 
 ## Credits
+
+Without the help of the Code Institute staff none of this would be possible, In particular my thanks go out to my Course Mentor Alexander Tastad, Coding Coach John Rearden and Subject Matter Expert Kevin Loughrey. I would also like to thank the rest of the WECA2025 cohort for their insight, advice and most of all their camaraderie during the bootcamp
