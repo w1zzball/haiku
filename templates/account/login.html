@@ -27,10 +27,50 @@
 
       <form class="auth-form" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        {% if form.non_field_errors %}
+          <ul class="error-message">
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {# Login field #}
+        <p>
+          <label for="id_login">{{ form.login.label }}</label>
+          {{ form.login }}
+          {% if form.login.errors %}
+            <span class="error">{{ form.login.errors }}</span>
+          {% endif %}
+        </p>
+
+        {# Password field #}
+        <p>
+          <label for="id_password">{{ form.password.label }}</label>
+          {{ form.password }}
+          {% if form.password.errors %}
+            <span class="error">{{ form.password.errors }}</span>
+          {% endif %}
+        </p>
+
+        {# Remember Me checkbox #}
+        {% if form.remember %}
+          <p>
+            {{ form.remember }}
+            <label for="id_remember">{{ form.remember.label }}</label>
+          </p>
+        {% endif %}
+
+        {# Hidden fields #}
+        {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+        {% endfor %}
+
         {% if redirect_field_value %}
           <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
+
         <button class="btn" type="submit">Sign In</button>
         <p class="auth-link">
           Don't have an account? <a href="{% url 'account_signup' %}">Sign up</a>
