@@ -49,6 +49,7 @@
         <p>
           <label for="id_password">{{ form.password.label }}</label>
           {{ form.password }}
+          <small id="id_password_helptext" class="form-text text-muted"><!-- Help text for password field --></small>
           {% if form.password.errors %}
             <span class="error">{{ form.password.errors }}</span>
           {% endif %}
