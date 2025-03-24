@@ -1,6 +1,7 @@
 # Hai.ku
 
 ---
+![Laptop Screenshot](./docs/images/misc/laptop.png)
 
 Hai.ku is a minimalist microblogging app, by constraining the content of posts to the 5-7-5 syllable haiku structure it challenges the user to express themselves within such a laconic form. The project was inspired by the original 140 character limit on twitter and the  Lars von Trier, Jørgen Leth film [The Five Obstructions](https://en.wikipedia.org/wiki/The_Five_Obstructions).
 
@@ -311,10 +312,28 @@ All python files return no errors when checked with the [CI Python Linter](https
 
 #### Lighthouse
 
-- The homepage recieves a greater than or equal to 99/100 on all lighthouse metrics
-- Individual post urls recieve high (>92) scores on all lighthouse metrics barring 'best practices' which is penalised for the use of third party cookies which are being imported by cloudinary
-- Profile pages likewise recieve high scores excepting for the cloudinary cookies dragging down the best practices score
-- User Posts page recieves either 100 or high 90s as it does not include cloudinary content
+All pages return either 99~100 on all lighthouse scores:
+
+**Login Page**
+![Login Lighthouse Score](./docs/images/tests/lighthouse/login.png)
+
+**Logout Page**
+![Logout Lighthouse Score](./docs/images/tests/lighthouse/logout.png)
+
+**Signup Page**
+![Signup Lighthouse Score](./docs/images/tests/lighthouse/signup.png)
+
+**Home Page**
+![Home Lighthouse Score](./docs/images/tests/lighthouse/home.png)
+
+**Posts Page**
+![Posts Lighthouse Score](./docs/images/tests/lighthouse/posts.png)
+
+**Profile Page**
+![Profile Lighthouse Score](./docs/images/tests/lighthouse/profile.png)
+
+**Individual Post Page**
+![Individual Post Lighthouse Score](./docs/images/tests/lighthouse/individual_post.png)
 
 ## Manual Testing
 
