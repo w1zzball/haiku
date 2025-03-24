@@ -49,6 +49,7 @@ function setupProfileEditing() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        showToast('Bio updated successfully!', 'success');
                         bioContent.textContent = data.bio || 'No bio yet.';
                         bioOverlay.style.display = 'none';
                     }
@@ -88,6 +89,7 @@ function setupProfileEditing() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        showToast('Profile picture updated successfully!', 'success');
                         // Update the profile picture
                         const profilePic = document.querySelector('.profile-pic img');
                         if (profilePic) {
