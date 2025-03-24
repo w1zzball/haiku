@@ -295,15 +295,15 @@ To deploy locally follow these steps-
 
 #### HTML
 
-Running the home, account and post pages generated from my templates through the WC3 HTML validator returns no errors.
+Running the home, account and post pages generated from my templates through the [WC3 HTML validator](https://validator.w3.org/) returns no errors.
 
 #### CSS
 
-W3C CSS validator returns no errors on any of the static css components.
+[W3C CSS validator](https://jigsaw.w3.org/css-validator/) returns no errors on any of the static css components.
 
 #### JavaScript
 
-JSHint returns no errors when allowing for ES6 and Browser features
+[JSHint](https://jshint.com/) returns no errors when allowing for ES6 and Browser features
 
 #### Python
 
@@ -355,14 +355,14 @@ The following table details the manual testing performed on the application:
 
 ## Technologies / Resources Used
 
-- HTML5
-- CSS3
-- JavaScript
-- Python
-- Django
+- HTML5 - structure
+- CSS3 - styling
+- JavaScript - interactivity
+- Python - backend logic
+- Django - backend server framework
 - PostgreSQL - main database
-- Cloudinary
-- Whitenoise
+- Cloudinary - image hosting
+- Whitenoise - static file collection
 - Balsamiq - for creating wireframes
 - dbdiagram.io - for creating ERD diagrams 
 - Miroboard - for creating a user flow diagram
@@ -370,6 +370,7 @@ The following table details the manual testing performed on the application:
 - coolers.co - for creating colour palattes
 - Code Institute's Python linter - Python validation
 - JSHint - JS validation
+- WC3 Validators - HTML and CSS Validation
 
 ---
 
