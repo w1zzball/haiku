@@ -1,0 +1,29 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block meta_description %}
+  Page not found - The requested page does not exist on Haiku Microblog.
+{% endblock %}
+
+{% block title %}
+  Page Not Found
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/components/error-page.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="container error-page">
+    <h1>404 - Page Not Found</h1>
+    <div class="error-actions">
+      <a href="{% url 'home' %}" class="btn">Return Home</a>
+    </div>
+
+    <div class="error-haiku">
+      <p>Seeking a lost page,</p>
+      <p>Links lead to empty spaces,</p>
+      <p>Back to start we go.</p>
+    </div>
+  </div>
+{% endblock %}
