@@ -7,7 +7,9 @@
     <meta name="description"
       content="{% block meta_description %}
         
+        
         A microblogging platform for sharing and discovering haikus in a 5-7-5 syllable pattern.
+
 
       {% endblock %}" />
 
@@ -75,7 +77,7 @@
     </header>
     <main>
       <!-- Hidden messages from Django -->
-      <div id="django-messages" style="display: none;">
+      <div id="django-messages">
         {% if messages %}
           {% for message in messages %}
             <div class="message" data-level="{{ message.level_tag }}">{{ message }}</div>
