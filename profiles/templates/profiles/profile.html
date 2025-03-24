@@ -116,13 +116,3 @@
     </div>
   {% endif %}
 {% endblock %}
-
-{% block extra_js %}
-  {% if user.is_authenticated and user == viewed_user %}
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        setupProfileEditing()
-      })
-    </script>
-  {% endif %}
-{% endblock %}
