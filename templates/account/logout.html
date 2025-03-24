@@ -15,6 +15,11 @@
 {% endblock %}
 
 {% block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message" data-level="{{ message.level_tag }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
   <div class="auth-container">
     <div class="auth-content">
       <h1 class="auth-title">Sign Out</h1>

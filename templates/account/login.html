@@ -1,6 +1,7 @@
 {% extends 'base_generic.html' %}
 
 {% load static %}
+{% load account %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/components/auth.css' %}" />
@@ -15,6 +16,11 @@
 {% endblock %}
 
 {% block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message" data-level="{{ message.level_tag }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
   <div class="auth-container">
     <div class="auth-content">
       <h1 class="auth-title">Sign In</h1>

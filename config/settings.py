@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 import cloudinary
+from django.contrib.messages import constants as messages
 if os.path.exists('env.py'):
     import env  # noqa: F401 - imports env variables
 
@@ -129,6 +130,15 @@ else:
         }
     }
 
+
+# Message settings
+MESSAGE_TAGS = {
+    messages.DEBUG: 'info',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
+}
 
 # CSRF Settings
 CSRF_TRUSTED_ORIGINS = [

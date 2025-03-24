@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
       content="{% block meta_description %}
+        
         A microblogging platform for sharing and discovering haikus in a 5-7-5 syllable pattern.
+
       {% endblock %}" />
 
     <!-- Favicon -->
@@ -72,6 +74,15 @@
       {% endif %}
     </header>
     <main>
+      <!-- Hidden messages from Django -->
+      <div id="django-messages" style="display: none;">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message" data-level="{{ message.level_tag }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
       {% block content %}
 
       {% endblock %}
@@ -103,6 +114,16 @@
     <script src="{% static 'js/profile.js' %}"></script>
     <script src="{% static 'js/utils/toasts.js' %}"></script>
     <script>
+      // Convert Django messages to toasts
+      document.addEventListener('DOMContentLoaded', function () {
+        const messages = document.querySelectorAll('#django-messages .message')
+        messages.forEach(function (message) {
+          const level = message.dataset.level
+          const type = level === 'error' ? 'error' : level === 'warning' ? 'warning' : level === 'success' ? 'success' : 'info'
+          showToast(message.textContent, type)
+        })
+      })
+      
       document.querySelector('.nav-toggle').addEventListener('click', function () {
         document.querySelector('nav').classList.toggle('active')
       })
