@@ -1,6 +1,7 @@
 # Hai.ku
 
 ---
+![Laptop Screenshot](./docs/images/misc/laptop.png)
 
 Hai.ku is a minimalist microblogging app, by constraining the content of posts to the 5-7-5 syllable haiku structure it challenges the user to express themselves within such a laconic form. The project was inspired by the original 140 character limit on twitter and the  Lars von Trier, Jørgen Leth film [The Five Obstructions](https://en.wikipedia.org/wiki/The_Five_Obstructions).
 
@@ -29,13 +30,13 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
       - [ERD](#erd)
   - [Features](#features)
       - [Implemented Features](#implemented-features)
-      - [Future Additions](#future-additions)
+      - [Potential Future Additions](#potential-future-additions)
   - [Agile Methodologies](#agile-methodologies)
       - [Acceptance Criteria/User Stories](#acceptance-criteriauser-stories)
       - [Kanban Board](#kanban-board)
   - [Use of AI](#use-of-ai)
   - [Deployment](#deployment)
-    - [Local Developement](#local-developement)
+    - [Local Development](#local-development)
     - [Deployment to Heroku](#deployment-to-heroku)
   - [Testing](#testing)
       - [HTML](#html)
@@ -67,19 +68,19 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
 
 [associated project board](https://github.com/users/w1zzball/projects/7)
 
-- User Story: As a new user, I want to sign up and create an account so that I can start sharing my haikus.
+- User Story: As a new user, I want to sign up and create an account so that I can start sharing my haiku.
 
 - As a user, I want to create a haiku post so that I can share my thoughts and creativity with the community.
 
-- As a user, I want to see a feed of haikus so that I can enjoy and engage with the creativity of others.
+- As a user, I want to see a feed of haiku so that I can enjoy and engage with the creativity of others.
 
-- As a user, I want to like haikus so that I can show appreciation for the posts I enjoy.
+- As a user, I want to like haiku so that I can show appreciation for the posts I enjoy.
 
-- As a user, I want to comment on haikus so that I can express my thoughts and engage with the creator.
+- As a user, I want to comment on haiku so that I can express my thoughts and engage with the creator.
 
-- As a user, I want insights on the performance of my haikus so that I can understand which posts resonate most with others.
+- As a user, I want insights on the performance of my haiku so that I can understand which posts resonate most with others.
 
-- As a user, I want to search for haikus by keywords, themes, or authors so that I can find specific content.
+- As a user, I want to search for haiku by keywords, themes, or authors so that I can find specific content.
 
 ---
 
@@ -133,13 +134,13 @@ The custom profile model extends the default user model supplied by django with 
 
 ##### Post
 
-The post model holds the users posts. It is linked to the posters profile and will be deleted upon deletion of the the posters profile, it also contains information on the posts creation date
+The post model represents the users posts. It is linked to the posters profile and will be deleted upon deletion of the the posters profile, it also contains information on the posts creation date
 
 | field      | value                                                                                 | explanation                          |
 | ---------- | ------------------------------------------------------------------------------------- | ------------------------------------ |
 | body       | models.TextField()                                                                    | content of the post                  |
 | created_at | models.DateTimeField(auto_now_add=True)                                               | timestamp when post was created      |
-| author     | models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name='posts') | link to profile who created the post |
+| author     | models.ForeignKey('profiles.Profile', on_delete=models.CASCADE, related_name='posts') | link to profile that created the post |
 
 ##### Likes
 
@@ -185,7 +186,7 @@ The Likes model saves when a user likes a post
   - Real-time like count updates without page refresh
   - Optimistic UI updates (shows changes immediately before server confirmation)
 
-#### Future Additions
+#### Potential Future Additions
 
 - Social Features
   - Follow/unfollow other users
@@ -198,9 +199,9 @@ The Likes model saves when a user likes a post
   - Profile statistics (posts count, likes received, etc.)
   - Achievement/badge system for active users
 - Content Features
-  - Categorize haikus by themes/topics
+  - Categorize haiku by themes/topics
   - Search functionality for posts and users
-  - Trending haikus section
+  - Trending haiku section
   - Seasonal themes and prompts
 - Educational Components
   - Tutorial section for haiku writing
@@ -216,24 +217,25 @@ After the initial ideation I wrote a few possible user stories and using microso
 
 #### Kanban Board
 [associated project board](https://github.com/users/w1zzball/projects/7)
-To help streamline design and pinpoint key features I employed a Kanban Board to track my progress and used the MoSCoW prioritisation method to sort tasks by how essential they were to the minimum viable product. This was impemented using githubs built in project boards, using custom labels to sort which items were must have/should have/could haves. 
+To help streamline design and pinpoint key features I employed a Kanban Board to track my progress and used the MoSCoW prioritisation method to sort tasks by how essential they were to the minimum viable product. This was implemented using github's built in project boards, using custom labels to sort which items were must have/should have/could haves. 
 
 ---
 ## Use of AI
 
 Github's Copilot AI was used to give suggestions for features or improvements, these were then refined and implemented. Here are some examples of how AI was utilised:
-
-- **Suggestion of novel methods** : Asking for advice on the implementaion of post creation, copilot suggested using AJAX to implement dynamic loading of new elements without full page refreshes. I had no experience with the XHR API and after consulting the MDN documentation and some guides I implemented the post CRUD functionality with AJAX. Using copilot to diagnose and troubleshoot errors as I went. 
-- **Generating model data** : To test the like, profile view and post feeds I needed multiple database entries. Manually creating these would have been tedious and as such I instead dumped my database into a json file which I then gave as context to copilot with a prompt of the form "use this database structure to construct test data, there should be at least 5 accounts, each having at least 3 posts, each post being a haiku...". The test data was then loaded back into the database allowing me to test for problems with larger scale data interacting with templates etc.
-- **Generating test data** : To test the haiku validation code I wrote a main guard entrypoint into the haiku_helpers.py module which would take test haiku and log out validation results. To test this I used microsofts copilot web app to generate larger sets of haiku which I then fed into the validator and based on the results I refined the validator for edge cases.
-- **Refactoring CSS** : As my project grew larger, the single stylesheet I had been using began to grow to cumbersome size, I decided to refactor the stylesheet into multiple modular components, each responsible for a specific aspect of the app; which could then be included only where necessary. I prompted copilot to split up my styles.css file into a few components "base", "posts", "profiles" etc. It then copied the relevant parts of the stylesheet into their own modules. I then manually reviewed the new files to make sure no actual content had been changed and that the correct css rules where in the correct files.
+- **Regex generation** : Copilot was used to help generate regular expressions for the sanitization of user submitted data for use in SEO metadata tags.
+- **Debugging** : Copilot helped identify cases where seemingly correct code did not function because elements were being accessed before creation, necessitating a change in load order or the use of guards.
+- **Suggestion of novel methods** : Asking for advice on the implementation of post creation, copilot suggested using AJAX to implement dynamic loading of new elements without full page refreshes. I had no experience with the XHR API and after consulting the MDN documentation and some guides I implemented the post CRUD functionality with AJAX. Using copilot to diagnose and troubleshoot errors as I learnt. 
+- **Generating model data** : To test the like, profile view and post feeds I needed multiple database entries. Manually creating these would have been tedious and as such I instead dumped my database into a json file which I then gave as context to copilot with a prompt to construct suitable test data. The test data was then loaded back into the database allowing me to test for problems with larger scale data interacting with templates etc.
+- **Generating test data** : To test the haiku validation code I wrote a main guard entrypoint into the haiku_helpers.py module which would take test haiku and log out validation results. To test this I used Microsoft's Copilot web app to generate larger sets of haiku which I then fed into the validator and based on the results I refined the validator for edge cases.
+- **Refactoring CSS** : As my project grew larger, the single stylesheet I had been using began to grow to cumbersome size, I decided to refactor the stylesheet into multiple modular components, each responsible for a specific aspect of the app; which could then be included only where necessary. I prompted Copilot to split up my styles.css file into a few components "base", "posts", "profiles" etc. It then copied the relevant parts of the stylesheet into their own modules. I then manually reviewed the new files to make sure no actual content had been changed and that the correct css rules where in the correct files.
 
 ---
 ## Deployment
 
-The project was deployed locally for initial testing and development then later to heroku, both local and remote deployments were kept up to date with oneanother so each could be used as a reliable model for refinement.
+The project was deployed locally for initial testing and development then later to heroku, both local and remote deployments were kept up to date with one another so each could be used as a reliable model for refinement.
 
-### Local Developement
+### Local Development
 To deploy locally follow these steps-
 1. Clone the Repository, run
 
@@ -311,10 +313,35 @@ All python files return no errors when checked with the [CI Python Linter](https
 
 #### Lighthouse
 
-- The homepage recieves a greater than or equal to 99/100 on all lighthouse metrics
-- Individual post urls recieve high (>92) scores on all lighthouse metrics barring 'best practices' which is penalised for the use of third party cookies which are being imported by cloudinary
-- Profile pages likewise recieve high scores excepting for the cloudinary cookies dragging down the best practices score
-- User Posts page recieves either 100 or high 90s as it does not include cloudinary content
+All pages return either 99~100 on all lighthouse scores:
+
+**Login Page**  
+\
+![Login Lighthouse Score](./docs/images/tests/lighthouse/login.png)
+
+**Logout Page**  
+\
+![Logout Lighthouse Score](./docs/images/tests/lighthouse/logout.png)
+
+**Signup Page**  
+\
+![Signup Lighthouse Score](./docs/images/tests/lighthouse/signup.png)
+
+**Home Page**  
+\
+![Home Lighthouse Score](./docs/images/tests/lighthouse/home.png)
+
+**Posts Page**  
+\
+![Posts Lighthouse Score](./docs/images/tests/lighthouse/posts.png)
+
+**Profile Page**  
+\
+![Profile Lighthouse Score](./docs/images/tests/lighthouse/profile.png)
+
+**Individual Post Page**  
+\
+![Individual Post Lighthouse Score](./docs/images/tests/lighthouse/individual_post.png)
 
 ## Manual Testing
 
@@ -334,10 +361,10 @@ The following table details the manual testing performed on the application:
 | Logged In    | Edit Post   |  Click the Edit Button on a post   |     Opens edit post overlay   | ✅     |
 | Logged In    | Delete Post   |  Click the Delete Button on a post   |     Opens delete post confirmation   | ✅     |
 | New Post    | Cancel   |     Click on cancel button         |     Closes create new post overlay        | ✅     |
-| New Post    |  Post validation  |  Click on save with inccorect content (non haiku)  |  Error message shown, post not submitted  | ✅     |
+| New Post    |  Post validation  |  Click on save with incorrect content (non haiku)  |  Error message shown, post not submitted  | ✅     |
 | New Post    | Post Submission |  Click on save with correct content    |  Post submitted message shown, post submitted, UI updated    | ✅     |
 | Edit Post    | Cancel   |     Click on cancel button         |     Closes edit post overlay        | ✅     |
-| Edit Post    |  Post validation  |  Click on save with inccorect content (non haiku)  |  Error message shown, edit not submitted  | ✅     |
+| Edit Post    |  Post validation  |  Click on save with incorrect content (non haiku)  |  Error message shown, edit not submitted  | ✅     |
 | Edit Post    | Post Submission |  Click on save with correct content    |  Post edited message shown, edit submitted, UI updated    | ✅     |
 | Delete Post    | Cancel   |     Click on Cancel button         |     dismisses delete confirmation        | ✅     |
 | Delete Post    | Delete   |     Click on Okay button         |     Post Deleted in database and UI         | ✅     |

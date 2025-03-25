@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta_description %}
-  Haiku Microblog - A minimalist platform for sharing and discovering haikus. Write, read, and interact with poems in the traditional 5-7-5 syllable format.
+  Haiku Microblog - A minimalist platform for sharing and discovering haiku. Write, read, and interact with poems in the traditional 5-7-5 syllable format.
 {% endblock %}
 
 {% block extra_css %}
@@ -18,43 +18,27 @@
     <h1 class="page-title">{{ page_title }}</h1>
 
     {% if user.is_authenticated %}
-      <div class="user-feed">
-        {% if user_posts %}
-          <ul class="post-list">
-            {% for post in user_posts %}
-              {% include 'posts/includes/post_item.html' with post=post show_author=False %}
-            {% empty %}
-              <li class="no-posts-paragraph">You haven't created any posts yet.</li>
-            {% endfor %}
-          </ul>
-          <div class="post-list-footer"></div>
-        {% else %}
-          <div class="empty-state">
-            <p class="no-posts-paragraph">You haven't created any posts yet.</p>
-          </div>
-        {% endif %}
-      </div>
+      <div class="user-feed"></div>
     {% else %}
       <div class="welcome-section">
         <h2>Discover the Art of Haiku</h2>
-        <p>Join our community of haiku writers and readers. Sign up to share your own haikus!</p>
+        <p>Join our community of haiku writers and readers. Sign up to share your own haiku!</p>
 
         <div class="cta-buttons">
           <a href="{% url 'account_signup' %}" class="btn btn-primary">Sign Up</a>
           <a href="{% url 'account_login' %}" class="btn">Log In</a>
         </div>
-
-        {% if random_posts %}
-          <h3>Featured Haikus</h3>
-          <ul class="post-list">
-            {% for post in random_posts %}
-              {% include 'posts/includes/post_item.html' with post=post show_author=True %}
-            {% empty %}
-              <li>No featured haikus yet!</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
       </div>
+    {% endif %}
+    {% if random_posts %}
+      <h2 class="featured-header">Featured Haiku</h2>
+      <ul class="post-list">
+        {% for post in random_posts %}
+          {% include 'posts/includes/post_item.html' with post=post show_author=True %}
+        {% empty %}
+          <li>No featured haiku yet!</li>
+        {% endfor %}
+      </ul>
     {% endif %}
   </div>
 {% endblock %}

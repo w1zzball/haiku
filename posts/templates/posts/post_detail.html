@@ -2,7 +2,7 @@
 {% load static %}
 {% load post_filters %}
 {% comment %}SEO stuff{% endcomment %}
-{% block meta_description %}Haiku by {{ post.author.user.username }}: '{{ post.body|sanitize_meta|truncatechars:100 }}' - View, like, and share haikus on our microblogging platform.{% endblock %}
+{% block meta_description %}Haiku by {{ post.author.user.username }}: '{{ post.body|sanitize_meta|truncatechars:100 }}' - View, like, and share haiku on our microblogging platform.{% endblock %}
 {% block extra_head %}
   <!-- OpenGraph tags for social sharing -->
   <meta property="og:title" content="Haiku by {{ post.author }}" />

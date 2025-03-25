@@ -54,6 +54,13 @@ header h1 a {
   text-decoration: none;
 }
 
+.featured-header {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--text-color);
+}
+
 nav {
   display: flex;
   justify-content: space-between;
