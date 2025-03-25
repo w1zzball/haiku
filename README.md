@@ -314,25 +314,32 @@ All python files return no errors when checked with the [CI Python Linter](https
 
 All pages return either 99~100 on all lighthouse scores:
 
-**Login Page**
+**Login Page**  
+\
 ![Login Lighthouse Score](./docs/images/tests/lighthouse/login.png)
 
-**Logout Page**
+**Logout Page**  
+\
 ![Logout Lighthouse Score](./docs/images/tests/lighthouse/logout.png)
 
-**Signup Page**
+**Signup Page**  
+\
 ![Signup Lighthouse Score](./docs/images/tests/lighthouse/signup.png)
 
-**Home Page**
+**Home Page**  
+\
 ![Home Lighthouse Score](./docs/images/tests/lighthouse/home.png)
 
-**Posts Page**
+**Posts Page**  
+\
 ![Posts Lighthouse Score](./docs/images/tests/lighthouse/posts.png)
 
-**Profile Page**
+**Profile Page**  
+\
 ![Profile Lighthouse Score](./docs/images/tests/lighthouse/profile.png)
 
-**Individual Post Page**
+**Individual Post Page**  
+\
 ![Individual Post Lighthouse Score](./docs/images/tests/lighthouse/individual_post.png)
 
 ## Manual Testing
