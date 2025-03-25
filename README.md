@@ -30,7 +30,7 @@ Hai.ku is a minimalist microblogging app, by constraining the content of posts t
       - [ERD](#erd)
   - [Features](#features)
       - [Implemented Features](#implemented-features)
-      - [Future Additions](#future-additions)
+      - [Potential Future Additions](#potential-future-additions)
   - [Agile Methodologies](#agile-methodologies)
       - [Acceptance Criteria/User Stories](#acceptance-criteriauser-stories)
       - [Kanban Board](#kanban-board)
@@ -186,7 +186,7 @@ The Likes model saves when a user likes a post
   - Real-time like count updates without page refresh
   - Optimistic UI updates (shows changes immediately before server confirmation)
 
-#### Future Additions
+#### Potential Future Additions
 
 - Social Features
   - Follow/unfollow other users
